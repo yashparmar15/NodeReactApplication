@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
 
+import AppBuilder from './containers/AppBuilder/AppBuilder';
+
 function App() {
   return (
-    <div className="App">
-    </div>
+    <AppBuilder />
   );
 }
 
