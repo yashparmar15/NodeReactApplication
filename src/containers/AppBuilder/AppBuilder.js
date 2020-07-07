@@ -2,8 +2,10 @@ import React from 'react';
 
 import Header from '../../components/Header/Header';
 
+import QuestionAnswer from '../../components/QuestionAnswer/QuestionAnswer';
+
 const appBuilder = (props) => (
-    <Header />
+    <QuestionAnswer />
 );
 
 export default appBuilder;

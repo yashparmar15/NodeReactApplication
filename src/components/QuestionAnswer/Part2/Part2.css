@@ -1,0 +1,81 @@
+.part2{
+    width : 64vw;
+    border-left: 0.001vw solid #6f7d95;
+}
+
+.head{
+    border-bottom: 0.001vw solid #6f7d95;
+    display: flex;
+    flex-direction: row;
+}
+
+.heading{
+    font-size: 1.7vw;
+    font-weight: normal;
+    color: #2c3e50;
+    width : 25vw;
+    padding : 1.15vw 2vw;
+}
+.filter{
+    width : 39vw;
+    float: right;
+    font-size: 1.2vw;
+    color: #6f7d95;
+    padding: 1vw 2vw;
+}
+.options{
+    width:25vw;
+    background-color:#eef1f7;
+    padding-top: 0.4vw;
+    padding-bottom: 0.4vw;
+    padding-right: 3vw;
+    border: 0.5px solid #6f7d95;
+    border-radius: 5px;
+    margin-left: 1vw;
+    color: #6f7d95;
+    padding-left: 1vw;
+}
+
+.options option{
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
+.filter2{
+    display: flex;
+    flex-direction: row;
+    width:64vw;
+    padding: 1vw 2vw;
+    border-bottom: 0.001vw solid #6f7d95;
+
+}
+.filt{
+    margin-right: 2vw;
+    font-size: 1.1vw;
+    color: #6f7d95;
+    cursor: pointer;
+    margin-top: 0.4vw;
+    border-bottom: 2px solid #ffff;
+}
+.filt:hover{
+    border-bottom: 2px solid #f39c12;
+}
+
+.perpage{
+    color: #6f7d95;
+    font-size: 1.1vw;
+    margin-left: 20vw;
+}
+
+.ques{
+    width:5vw;
+    background-color:#eef1f7;
+    padding-top: 0.2vw;
+    padding-bottom: 0.2vw;
+    padding-right: 0vw;
+    border: 0.5px solid #6f7d95;
+    border-radius: 5px;
+    margin-left: 1vw;
+    color: #6f7d95;
+    padding-left: 1vw;
+}

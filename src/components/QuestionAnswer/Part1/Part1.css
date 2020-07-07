@@ -1,0 +1,72 @@
+.part1{
+    width: 18vw;
+    height : 100vh;
+}
+
+.askButton{
+    width:16vw;
+    background-color: #3498db;
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.1vw;
+    border: none;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    display: block;
+    margin-top: 2vw;
+    border-radius: 5px;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    position: fixed;
+}
+
+.askButton:hover{
+    background-color: #342244;
+}
+.fa{
+    margin-right: 1vw;
+}
+
+.category{
+    margin-top: 5vw;
+    padding-top:3vw;
+    padding-bottom: 3vw;
+    border-left: 0.001vw solid #6f7d95;
+    border-bottom: 0.001vw solid #6f7d95;
+}
+.category-btn{
+    width:16vw;
+    background-color: #ffff;
+    color: #78829d;
+    font-weight: 600;
+    font-size: 1.1vw;
+    border: none;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    display: block;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    text-align: left;
+    padding-left: 2vw;
+}
+
+.category-btn:hover{
+    border-left:0.5vw solid #f39c12;
+    background-color: lightgray;
+}
+
+.terms{
+    font-size: 1vw;
+    margin-top: 3vw;
+    color:#78829d;
+    text-align: left;
+    margin-left: 2vw;
+    font-weight: normal;
+}
+.terms p b{
+    cursor: pointer;
+    color: #15a4fa;
+}
+.terms p b:hover{
+    color:#78829d;
+}
