@@ -23,8 +23,10 @@ class Part1 extends Component{
     render(){
         return(
             <div class = "part1">
+                <div>
                 <button class = "askButton" onClick={this.onOpenModal}><i class = "fa fa-plus" aria-hidden="true"/>ASK A QUESTION</button>
                 <AskQuestion flag = {this.state.open} close = {this.onCloseModal}/>
+                </div>
                 <div class = "category">
                     <button class = "category-btn"><i class = "fa fa-question" aria-hidden="true"/>Questions</button>
                     <button class = "category-btn"><i class = "fa fa-tag" aria-hidden="true"/>Tags</button>

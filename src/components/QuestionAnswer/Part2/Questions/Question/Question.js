@@ -12,8 +12,8 @@ const question = (props) => (
             <h2 class = "title">What is Business??</h2>
             <h3 class = "description">I want to know about business process.</h3>
             <div class = "tags">
-                <div class = "tag">business</div>
-                <div class = "tag">Science</div>
+                <div class = "tag-q">business</div>
+                <div class = "tag-q">Science</div>
             </div>
             <p><b>Yash Parmar</b> Asked  on 06/07/2020</p>
             <p><b>View all <i class='fa fa-arrow-right'></i></b></p>

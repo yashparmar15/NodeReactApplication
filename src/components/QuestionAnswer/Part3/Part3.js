@@ -14,9 +14,9 @@ const part3 = (props) => (
         </div>
         <div class = "most-used-tags">
             <h4>MOST USED TAGS</h4>
-            <div class = "tag">business</div>
-            <div class = "tag">science</div>
-            <div class = "tag">technology</div>
+            <div class = "tag tag-q">business</div>
+            <div class = "tag tag-q">science</div>
+            <div class = "tag tag-q">technology</div>
         </div>
         <div class = "hot-questions">
             <h4>HOT QUESTIONS</h4>
