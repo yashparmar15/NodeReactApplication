@@ -40,10 +40,13 @@
     margin-right:2vw;
     width:14vw;
 }
-
+.tag{
+    cursor: pointer;
+}
 .most-used-tags h4{
     font-size: 1.3vw;
     color:#2c3e50;
+    
 }
 
 .hot-questions{
@@ -63,6 +66,10 @@
     font-weight: normal;
     cursor: pointer;
     font-size: 1.1vw;
+}
+
+.hot-questions p:hover{
+    text-decoration: underline;
 }
 
 .top-users{

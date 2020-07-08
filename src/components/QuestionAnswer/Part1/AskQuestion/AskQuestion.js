@@ -7,13 +7,14 @@ import {Editor , EditorState , getDefaultKeyBinding , RichUtils} from 'draft-js'
 import '../../../../../node_modules/draft-js/dist/Draft.css';
 
 import './AskQuestion.css';
+import { Button } from 'bootstrap';
 
 
 
 class AskQuestion extends Component {
     constructor(props) {
       super(props);
-      this.state = {editorState: EditorState.createEmpty()};
+      this.state = {editorState: EditorState.createEmpty() , length : 150 , tags : [],value : "",};
 
       this.focus = () => this.refs.editor.focus();
       this.onChange = (editorState) => this.setState({editorState});
@@ -66,6 +67,27 @@ class AskQuestion extends Component {
       );
     }
 
+    changeInput = (e) =>{
+        this.setState({length : 150 - e.target.value.length})
+    }
+    keyPressed = (e) =>{
+        this.setState({value : e.target.value})
+        if(e.keyCode === 13){
+            this.state.tags.push(e.target.value);
+            this.setState({value : ""});
+        }
+    }
+
+    changed = (e) => {
+        this.setState({value : e.target.value})
+    }
+    remove = (e,tag) => {
+        let v = [...this.state.tags]
+        const index = v.indexOf(e);
+        v.splice(index,1);
+        this.setState({tags : v});
+    }
+
     render() {
       const {editorState} = this.state;
 
@@ -78,32 +100,56 @@ class AskQuestion extends Component {
           className += ' RichEditor-hidePlaceholder';
         }
       }
+      const tags = [...this.state.tags];
+      let i = -1;
+      const container = tags.map(tag => {
+        i++;
+      return <div key = {tag} class = "tag-add">{tag} <i class="fa fa-window-close" aria-hidden="true" onClick = {this.remove.bind(this,tag)}></i></div>
+      });
 
+      let l = false;
+      if(this.state.tags.length >= 5)
+        l = true;
       return (
         <Modal open={this.props.flag} onClose={this.props.close}>
-        <div className="RichEditor-root">
-          <BlockStyleControls
-            editorState={editorState}
-            onToggle={this.toggleBlockType}
-          />
-          <InlineStyleControls
-            editorState={editorState}
-            onToggle={this.toggleInlineStyle}
-          />
-          <div className={className} onClick={this.focus}>
-            <Editor
-              blockStyleFn={getBlockStyle}
-              customStyleMap={styleMap}
-              editorState={editorState}
-              handleKeyCommand={this.handleKeyCommand}
-              keyBindingFn={this.mapKeyToEditorCommand}
-              onChange={this.onChange}
-              placeholder="Tell a story..."
-              ref="editor"
-              spellCheck={true}
-            />
-          </div>
-        </div>
+            <h1 class = "ask-question-heading">Ask a Question</h1>
+            <div class = "ask-modal-body">
+                <div><input type = "text" maxLength= "150" class = "question-text" placeholder = "Your Question" onChange = {this.changeInput.bind(this)}></input><span class="badge badge-light">{this.state.length}</span></div>
+                 <select class = "question-text"><option>Select Category</option></select>
+                <div className="RichEditor-root">
+                <BlockStyleControls
+                    editorState={editorState}
+                    onToggle={this.toggleBlockType}
+                />
+                <InlineStyleControls
+                    editorState={editorState}
+                    onToggle={this.toggleInlineStyle}
+                />
+                <div className={className} onClick={this.focus}>
+                    <Editor
+                    blockStyleFn={getBlockStyle}
+                    customStyleMap={styleMap}
+                    editorState={editorState}
+                    handleKeyCommand={this.handleKeyCommand}
+                    keyBindingFn={this.mapKeyToEditorCommand}
+                    onChange={this.onChange}
+                    placeholder="Question Description..."
+                    ref="editor"
+                    spellCheck={true}
+                    />
+                </div>
+                </div>
+                <div class = "add-tags">
+                    <p>Press enter to add new tag</p>
+                    <input type = "text" placeholder = "Tag(max 5)" onKeyDown = {this.keyPressed} onChange = {this.changed.bind(this)} value = {this.state.value} disabled = {l}/>
+                    <div class ="tags-max">
+                    {container}
+                    </div>
+                    
+                </div>
+                <button type = "submit"  class = "submit-ask-question">SUBMIT QUESTION </button>
+            </div>
+            
         </Modal>
       );
     }
