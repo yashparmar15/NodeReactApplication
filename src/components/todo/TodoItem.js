@@ -1,33 +1,41 @@
-import React, { Component } from "react";
-import Proptypes from "prop-types";
+import React, { Component } from 'react';
+import Proptypes from 'prop-types';
 
 class TodoItem extends Component {
-	render() {
-		const { id, task, description } = this.props.todo;
+  render() {
+    const { id, task, description } = this.props.todo;
 
-		return (
-			<div style={style}>
-				<div className="card">
-					<div className="card-body">
-						<h5 className="card-title">{task}</h5>
-						<p className="card-text">{description}</p>
-						<button
-							className="btn btn-dark btn-sm"
-							onClick={this.props.delTodo.bind(this, id)}
-						>
-							Remove
-						</button>
-						<button
-							className="btn btn-warning btn-sm"
-							onClick={this.props.letsdo.bind(this, id)}
-						>
-							Let's Do
-						</button>
-					</div>
-				</div>
-			</div>
-		);
-	}
+    return (
+      <div style={style}>
+        <div className='card'>
+          <div className='card-body'>
+            <h5 className='card-title'>{task}</h5>
+            <p className='card-text'>{description}</p>
+            <div className='d-flex justify-content-around container'>
+              <button
+                className='btn btn-danger btn-md rounded-0'
+                onClick={this.props.delTodo.bind(this, id)}
+              >
+                Remove{' '}
+                <span role='img' aria-label='todo'>
+                  😞{' '}
+                </span>
+              </button>
+              <button
+                className='btn btn-warning btn-md rounded-0'
+                onClick={this.props.letsdo.bind(this, id)}
+              >
+                Let's Do!{' '}
+                <span role='img' aria-label='todo'>
+                  🙂{' '}
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 // TodoItem.propTypes = {
@@ -36,7 +44,7 @@ class TodoItem extends Component {
 // };
 
 const style = {
-	marginTop: "10px",
+  marginTop: '10px',
 };
 
 export default TodoItem;

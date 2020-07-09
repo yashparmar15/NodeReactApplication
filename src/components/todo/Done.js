@@ -13,15 +13,17 @@ class Done extends React.Component {
 
   render() {
     return (
-      <div className='card border-success mb-3 text-center'>
-        <div className='card-header bg-success font'>Done</div>
+      <div className='card border-success mb-3 text-center rounded-0 doing-bg'>
+        <h4 className='card-header bg-success font text-white rounded-0'>
+          Done!
+        </h4>
         <div className='card-body text-success'>
           <button
             type='button'
-            className='btn btn-dark'
+            className='btn btn-success rounded-0'
             onClick={() => this.setState({ addModalShow: true })}
           >
-            Add Task
+            Add Task <i class='fas fa-plus'></i>
           </button>
           <AddDone
             show={this.state.addModalShow}
