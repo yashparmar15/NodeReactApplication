@@ -1,6 +1,6 @@
 import React from "react";
 import TodoItem from "./TodoItem";
-import Proptypes from "prop-types";
+// import Proptypes from "prop-types";
 import AddTodo from "./AddTodo";
 // import axios from "axios";
 
@@ -46,9 +46,9 @@ class Todo extends React.Component {
 	}
 }
 
-const style = {
-	width: "30%",
-};
+// const style = {
+// 	width: "30%",
+// };
 
 // Todo.propTypes = {
 // 	todos: Proptypes.array.isRequired,
