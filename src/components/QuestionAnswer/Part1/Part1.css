@@ -3,6 +3,7 @@
     height : 100vh;
     display: flex;
     flex-direction: column;
+    background-color: #fff;
 }
 
 .askButton{
@@ -25,10 +26,9 @@
 .askButton:hover{
     background-color: #342244;
 }
-.fa{
-    margin-right: 1vw;
+.fa-p2{
+    padding-right: 1vw !important;
 }
-
 .category{
     margin-top: 5vw;
     padding-top:3vw;
@@ -92,8 +92,8 @@
         margin-right: 1px;
         position: fixed;
     }
-    .fa{
-        margin-right: 10px;
+    .fa-p2{
+        margin-right: 10px !important; 
     }
     
 

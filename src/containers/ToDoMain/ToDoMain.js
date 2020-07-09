@@ -1,10 +1,10 @@
-import React from "react";
-import Todo from "../components/todo/Todo";
-import Doing from "../components/todo/Doing";
-import Done from "../components/todo/Done";
+import React , {Component} from "react";
+import Todo from "../../components/todo/Todo";
+import Doing from '../../components/todo/Doing';
+import Done from '../../components/todo/Done';
 import { v4 as uuidv4 } from "uuid";
 
-class Main extends React.Component {
+class ToDoMain extends Component {
 	state = {
 		todos: [
 			{ id: uuidv4(), task: "kya kr rha", description: "Bs kuch khas nhi" },
@@ -158,4 +158,4 @@ const style = {
 	width: "30%",
 };
 
-export default Main;
+export default ToDoMain;

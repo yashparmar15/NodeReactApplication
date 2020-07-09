@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
+.project-bg {
+  min-height: 100vh !important;
+  background-color: white;
+  font-family: 'Raleway', sans-serif;
+  /* background-image: url('https://images.unsplash.com/photo-1572177812156-58036aae439c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; */
+}
+.project-bg .card {
+  width: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+  /* background: rgba(255, 225, 225, 1); */
+}
+
+.project-header-bg {
+  /* background-color: #08aeea;
+  background-image: linear-gradient(0deg, #08aeea 0%, #2af598 100%); */
+  padding: 12vh 0;
+  background: url('https://images.unsplash.com/photo-1516132117637-8328c0d7a805?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80');
+  opacity: 0.9;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.project-header-bg h1 {
+  color: white;
+  display: inline-flex;
+  font-weight: bolder;
+  border: 6px solid white;
+  position: relative;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  padding: 2vh 3vh;
+}
+
+.project-bg .card:hover {
+  -webkit-box-shadow: 0px 0px 18px 10px rgba(167, 208, 235, 0.55);
+  -moz-box-shadow: 0px 0px 18px 10px rgba(167, 208, 235, 0.55);
+  box-shadow: 0px 0px 18px 10px rgba(167, 208, 235, 0.55);
+  border: none;
+}
+
+.project-bg .card-text {
+  -webkit-line-clamp: 8 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  text-align: justify;
+}
+
+.project-bg .tags-wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.project-bg .ayan-tags {
+  margin-right: 1rem;
+  color: white;
+  background-color: #989898;
+  padding: 0px 13px;
+  border-radius: 15px;
+  border: 1px solid black;
+}
+
+.modal-button {
+  border-radius: 0;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 30px;
+}
+
+.modal-cross {
+  background-color: #282828;
+  color: white;
+  margin: 0 !important;
+  padding: 10px 15px !important;
+  border-radius: 50%;
+}
+
+.project-modal .modal-header {
+  border-bottom: 0 none;
+}
+
+.project-modal .modal-footer {
+  border-top: 0 none;
+}
+
+.ayan-save-btn {
+  border-radius: 0;
+  position: relative;
+  right: 50%;
+  transform: translateX(50%);
+}

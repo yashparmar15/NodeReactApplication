@@ -36,6 +36,8 @@
     color: #6f7d95;
     text-align: center;
     padding: 1vw 0vw;
+    /* background-color: #1abc9c; */
+    background-color: #fff;
 }
 
 .title{
@@ -67,6 +69,11 @@
     background-color: #eef1f7;
     margin-right: 1vw;
     margin-top: 5px;
+    cursor: pointer;
+}
+.tag-q:hover{
+    color: black;
+    border : 1px solid black;
 }
 .detail p{
     margin-top: 10px;
