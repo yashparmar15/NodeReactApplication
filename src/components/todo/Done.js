@@ -17,7 +17,7 @@ class Done extends React.Component {
         <h4 className='card-header bg-success font text-white rounded-0'>
           Done!
         </h4>
-        <div className='card-body text-success'>
+        <div className='card-body text-success' style = {{height : '400px' , overflowY : 'auto'}}>
           <button
             type='button'
             className='btn btn-success rounded-0'
