@@ -6,6 +6,6 @@ module.exports = {
   githubClientID: '81707b944c6a23b420b9',
   githubClientSecret: '403649a29d6436d91d0501f516a628aa6b35e97c',
   MONGO_URI:
-    'mongodb+srv://yash15700:qwertyuiop@cluster0.4glkw.mongodb.net/test',
+    '',
   cookieKey: 'eifninfeckinvifdslnlndsfvzdvnsnvisnfv',
 };
