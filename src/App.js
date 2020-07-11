@@ -13,6 +13,32 @@ function App(props) {
   useEffect(() => {
     props.fetch_user();
   }, []);
+
+  const renderContent = () => {
+    switch (props.user) {
+      case null:
+        return <a href='/'>Loading</a>;
+      case false:
+        return;
+
+      default:
+        return (
+          <>
+            <Route
+              exact
+              path={`/profile/${props.user._id}`}
+              component={Profile}
+            />
+            <Route
+              exact
+              path={`/profile/todo/${props.user._id}`}
+              component={ToDoMain}
+            />
+          </>
+        );
+    }
+  };
+
   return (
     <>
       <Router>
@@ -20,8 +46,8 @@ function App(props) {
         <Switch>
           <Route exact path='/questions' component={AppBuilder} />
           <Route exact path='/projects' component={Project} />
-          <Route exact path='/profile/todo' component={ToDoMain} />
-          <Route exact path='/profile' component={Profile} />
+
+          {renderContent()}
         </Switch>
       </Router>
     </>
@@ -36,4 +62,10 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(App);
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
