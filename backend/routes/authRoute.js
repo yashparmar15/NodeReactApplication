@@ -18,14 +18,14 @@ module.exports = (app) => {
     '/auth/google/callback',
     passport.authenticate('google'),
     (req, res) => {
-      res.redirect('/profile');
+      res.redirect(`/profile/${req.user.id}`);
     }
   );
   app.get(
     '/auth/github/callback',
     passport.authenticate('github'),
     (req, res) => {
-      res.redirect('/profile');
+      res.redirect(`/profile/${req.user.id}`);
     }
   );
 

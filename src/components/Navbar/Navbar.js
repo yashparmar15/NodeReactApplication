@@ -16,7 +16,13 @@ const Navbar = (props) => {
         );
 
       default:
-        return <a href='/api/logout'>Logout</a>;
+        return (
+          <>
+            <Link to={`/profile/todo/${props.user._id}`}>Todo</Link>
+            <Link to={`/profile/${props.user._id}`}>Profile</Link>
+            <a href='/api/logout'>Logout</a>
+          </>
+        );
     }
   };
   return (
@@ -24,8 +30,7 @@ const Navbar = (props) => {
       <nav className='nav navbar bg-dark text-primary d-flex justify-content-around'>
         <Link to='/questions'>Questions Page</Link>
         <Link to='/projects'>Projects</Link>
-        <Link to='/profile/todo'>Todo</Link>
-        <Link to='/profile'>Profile</Link>
+
         <Link to='/'>Home</Link>
         {renderContent()}
       </nav>
