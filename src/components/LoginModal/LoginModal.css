@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap');
+.btn-google {
+  color: white !important;
+  background-color: #ea4335 !important;
+}
+
+.btn-google:hover {
+  background-color: #c53a2d !important;
+}
+
+.btn-github {
+  color: black !important;
+  background-color: #c6d3e7 !important;
+}
+
+.btn-github:hover {
+  background-color: #b6c1d3 !important;
+}
+
+.all-buttons {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid white; */
+  padding: 2em 7em;
+}
+
+.btn-social {
+  width: 15rem !important;
+  min-height: 3em;
+}
+
+.github-logo {
+  color: black;
+  float: left;
+
+  font-size: 1.8em;
+}
+
+.google-logo {
+  float: left;
+
+  font-size: 1.4em;
+}
+
+.github-text {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.1em;
+  font-family: 'Nunito', sans-serif;
+  position: relative;
+  left: -6px;
+}
+
+.google-text {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.2em;
+  font-family: 'Roboto', sans-serif !important;
+}
+
+.modal-login-content {
+  background: #1d2636 !important;
+  -webkit-box-shadow: 0px 0px 185px 88px rgba(17, 236, 206, 0.66);
+  -moz-box-shadow: 0px 0px 185px 88px rgba(17, 236, 206, 0.66);
+  box-shadow: 0px 0px 185px 88px rgba(17, 236, 206, 0.66);
+}
+
+.modal-login-body {
+  display: flex;
+  justify-content: center;
+}
+
+.modal-login-header {
+  border-bottom: 0 none !important;
+}
+
+.modal-login-title {
+  color: #11ece5 !important;
+  font-family: 'Nunito', sans-serif;
+}
+
+.modal-dialog-login {
+  position: relative;
+  top: 10vh !important;
+}
+
+.cross-login-modal {
+  color: #11ece5 !important;
+}

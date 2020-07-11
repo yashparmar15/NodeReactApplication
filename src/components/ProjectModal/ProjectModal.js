@@ -9,14 +9,14 @@ function ProjectModal() {
           type='button'
           className='btn btn-info modal-button mb-3 mt-3'
           data-toggle='modal'
-          data-target='#exampleModal'
+          data-target='#filterModal'
         >
           <i className='fas fa-filter'></i>
           <span className='ml-2'>Filter</span>
         </button>
         <div
           className='modal fade'
-          id='exampleModal'
+          id='filterModal'
           tabIndex='-1'
           role='dialog'
           aria-labelledby='exampleModalLabel'
