@@ -48,7 +48,7 @@ class AddDoing extends Component {
 							<div className="form-group">
 								<label class="col-form-label">Description:</label>
 								<textarea
-									class="form-control"
+									className="form-control"
 									name="description"
 									value={this.state.description}
 									onChange={this.onChange}
