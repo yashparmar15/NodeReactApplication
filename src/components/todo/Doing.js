@@ -17,7 +17,7 @@ class Doing extends React.Component {
         <h4 className='card-header bg-warning font text-white rounded-0'>
           Doing!
         </h4>
-        <div className='card-body text-warning'>
+        <div className='card-body text-warning' style = {{height : '400px' , overflowY : 'auto'}}>
           <button
             type='button'
             className='btn btn-success rounded-0'

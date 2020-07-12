@@ -19,7 +19,7 @@ class Todo extends React.Component {
         <h4 className='card-header bg-primary font text-white rounded-0'>
           Add Task!
         </h4>
-        <div className='card-body text-primary'>
+        <div className='card-body text-primary' style = {{height : '400px' , overflowY : 'auto'}} >
           <button
             type='button'
             className='btn btn-success rounded-0'
