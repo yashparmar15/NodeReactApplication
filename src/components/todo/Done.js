@@ -23,7 +23,7 @@ class Done extends React.Component {
             className='btn btn-success rounded-0'
             onClick={() => this.setState({ addModalShow: true })}
           >
-            Add Task <i class='fas fa-plus'></i>
+            Add Task <i className='fas fa-plus'></i>
           </button>
           <AddDone
             show={this.state.addModalShow}

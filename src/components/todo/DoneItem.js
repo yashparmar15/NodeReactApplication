@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import Proptypes from 'prop-types';
-
 class DoneItem extends Component {
   render() {
     const { id, task, description } = this.props.done;

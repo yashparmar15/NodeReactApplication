@@ -9,22 +9,24 @@ import Project from './containers/Project/Project';
 import Profile from './containers/Profile/Profile';
 import ToDoMain from './containers/ToDoMain/ToDoMain';
 import { fetchUserAction } from './fullredux/actions/myActions';
+import PageNotFound from './components/PageNotFound/PageNotFound';
 function App(props) {
   useEffect(() => {
     props.fetch_user();
-  }, []);
+  },[]);
 
   const renderContent = () => {
     switch (props.user) {
       case null:
-        return <a href='/'>Loading</a>;
+        return <React.Fragment><a href='/'>Loading</a></React.Fragment>
       case false:
         return;
 
       default:
         return (
           <>
-            <Route
+          <Switch>
+          <Route
               exact
               path={`/profile/${props.user._id}`}
               component={Profile}
@@ -34,6 +36,9 @@ function App(props) {
               path={`/profile/todo/${props.user._id}`}
               component={ToDoMain}
             />
+            <Route component = {PageNotFound} />
+          </Switch>
+            
           </>
         );
     }
@@ -46,8 +51,9 @@ function App(props) {
         <Switch>
           <Route exact path='/questions' component={AppBuilder} />
           <Route exact path='/projects' component={Project} />
-
+          
           {renderContent()}
+          
         </Switch>
       </Router>
     </>

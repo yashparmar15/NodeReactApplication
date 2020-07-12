@@ -3,28 +3,28 @@ import React from 'react';
 import './Part3.css';
 
 const part3 = (props) => (
-    <div class = "part3">
-        <div class = "questions">
+    <div className = "part3">
+        <div className = "questions">
             Questions
             <p>18</p>
         </div>
-        <div class = "members">
+        <div className = "members">
             Members
             <p>12</p>
         </div>
-        <div class = "most-used-tags">
+        <div className = "most-used-tags">
             <h4>MOST USED TAGS</h4>
-            <div class = "tag tag-q">business</div>
-            <div class = "tag tag-q">science</div>
-            <div class = "tag tag-q">technology</div>
+            <div className = "tag tag-q">business</div>
+            <div className = "tag tag-q">science</div>
+            <div className = "tag tag-q">technology</div>
         </div>
-        <div class = "hot-questions">
+        <div className = "hot-questions">
             <h4>HOT QUESTIONS</h4>
             <p>What is business?? What is business?? What is business??</p>
             <p>What is business??</p>
             <p>What is business??</p>
         </div>
-        <div class = "top-users">
+        <div className = "top-users">
             <h4>TOP USERS (POINTS)</h4>
             <div>
                 1. Yash Parmar (2888)
@@ -36,7 +36,7 @@ const part3 = (props) => (
                 3. Viranch Patel (28)
             </div>
         </div>
-        <div class = "top-users">
+        <div className = "top-users">
             <h4>TOP USERS (QUESTIONS)</h4>
             <div>
                 1. Yash Parmar (2888)
@@ -48,7 +48,7 @@ const part3 = (props) => (
                 3. Viranch Patel (28)
             </div>
         </div>
-        <div class = "top-users">
+        <div className = "top-users">
             <h4>TOP USERS (ANSWERS)</h4>
             <div>
                 1. Yash Parmar (2888)

@@ -9,18 +9,18 @@ import 'bootstrap/dist/js/bootstrap.js';
 import 'font-awesome/css/font-awesome.min.css';
 
 const part2 = (props) => (
-    <div class = "part2">
-        <div class = "head">
-            <h1 class = "heading">All Questions</h1>
-            <div class = "filter">
-                 Filter By <select class = "options"><option>Select Categories</option></select>
+    <div className = "part2">
+        <div className = "head">
+            <h1 className = "heading">All Questions</h1>
+            <div className = "filter">
+                 Filter By <select className = "options"><option>Select Categories</option></select>
             </div>
         </div>
-        <div class = "filter2">
-            <h3 class="filt">Latest</h3>
-            <h3 class="filt">Votes</h3>
-            <h3 class="filt">Unanswered</h3>
-            <div class = "perpage">Questions Per Page: <select class = "ques"><option>12</option></select></div>
+        <div className = "filter2">
+            <h3 className="filt">Latest</h3>
+            <h3 className="filt">Votes</h3>
+            <h3 className="filt">Unanswered</h3>
+            <div className = "perpage">Questions Per Page: <select className = "ques"><option>12</option></select></div>
         </div>
         <Questions />
     </div>

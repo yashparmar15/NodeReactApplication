@@ -1,10 +1,6 @@
-import React, { Component, useState } from "react";
+import React, { Component} from "react";
 import { Button, Modal } from "react-bootstrap";
 class AddDone extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	state = {
 		task: "",
 		description: "",

@@ -7,7 +7,6 @@ import {Editor , EditorState , getDefaultKeyBinding , RichUtils} from 'draft-js'
 import '../../../../../node_modules/draft-js/dist/Draft.css';
 
 import './AskQuestion.css';
-import { Button } from 'bootstrap';
 
 
 
@@ -104,7 +103,7 @@ class AskQuestion extends Component {
       let i = -1;
       const container = tags.map(tag => {
         i++;
-      return <div key = {tag} class = "tag-add">{tag} <i class="fa fa-window-close" aria-hidden="true" onClick = {this.remove.bind(this,tag)}></i></div>
+      return <div key = {tag} className = "tag-add">{tag} <i class="fa fa-window-close" aria-hidden="true" onClick = {this.remove.bind(this,tag)}></i></div>
       });
 
       let l = false;
@@ -112,10 +111,10 @@ class AskQuestion extends Component {
         l = true;
       return (
         <Modal open={this.props.flag} onClose={this.props.close}>
-            <h1 class = "ask-question-heading">Ask a Question</h1>
-            <div class = "ask-modal-body">
-                <div><input type = "text" maxLength= "150" class = "question-text" placeholder = "Your Question" onChange = {this.changeInput.bind(this)}></input><span class="badge badge-light">{this.state.length}</span></div>
-                 <select class = "question-text"><option>Select Category</option></select>
+            <h1 className = "ask-question-heading">Ask a Question</h1>
+            <div className = "ask-modal-body">
+                <div><input type = "text" maxLength= "150" className = "question-text" placeholder = "Your Question" onChange = {this.changeInput.bind(this)}></input><span class="badge badge-light">{this.state.length}</span></div>
+                 <select className = "question-text"><option>Select Category</option></select>
                 <div className="RichEditor-root">
                 <BlockStyleControls
                     editorState={editorState}
@@ -139,15 +138,15 @@ class AskQuestion extends Component {
                     />
                 </div>
                 </div>
-                <div class = "add-tags">
+                <div className = "add-tags">
                     <p>Press enter to add new tag</p>
                     <input type = "text" placeholder = "Tag(max 5)" onKeyDown = {this.keyPressed} onChange = {this.changed.bind(this)} value = {this.state.value} disabled = {l}/>
-                    <div class ="tags-max">
+                    <div className ="tags-max">
                     {container}
                     </div>
                     
                 </div>
-                <button type = "submit"  class = "submit-ask-question">SUBMIT QUESTION </button>
+                <button type = "submit"  className = "submit-ask-question">SUBMIT QUESTION </button>
             </div>
             
         </Modal>

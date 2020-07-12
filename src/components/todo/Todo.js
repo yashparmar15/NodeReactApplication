@@ -25,7 +25,7 @@ class Todo extends React.Component {
             className='btn btn-success rounded-0'
             onClick={() => this.setState({ addModalShow: true })}
           >
-            Add Task <i class='fas fa-plus'></i>
+            Add Task <i className='fas fa-plus'></i>
           </button>
           <AddTodo
             show={this.state.addModalShow}

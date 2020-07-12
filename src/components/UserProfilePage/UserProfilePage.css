@@ -1,5 +1,7 @@
 .profile-nav{
     font-weight: bolder;
+    cursor: pointer;
+    color: #000fff;
 }
 .profile-pic-yash{
     border-radius: 30px;
