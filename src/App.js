@@ -17,24 +17,12 @@ function App(props) {
   if (props.user.loading) {
     return <div className=''>Loading</div>;
   }
-  // const renderContent = () => {
-  //   if (props.user.isAuthenticated) {
-  //     return (
-  //       <>
-  //         <Switch>
-
-  //           <Route component={PageNotFound} />
-  //         </Switch>
-  //       </>
-  //     );
-  //   } else {
-  //   }
-  // };
 
   return (
     <>
       <Router>
         <Navbar />
+
         <Switch>
           <Route exact path='/questions' component={AppBuilder} />
           <Route exact path='/projects' component={Project} />

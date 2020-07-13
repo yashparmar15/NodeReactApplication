@@ -33,8 +33,25 @@ module.exports = (app) => {
     res.send(req.user);
   });
 
-  app.get('/api/logout', (req, res) => {
-    req.logout();
-    res.redirect(`/`);
+  app.get('/api/logout', async (req, res) => {
+    await req.logout();
+    req.session = null;
+    res.clearCookie('ayan', { path: '/', httpOnly: true });
+    res.clearCookie('ayan.sig', { path: '/', httpOnly: true });
+    // res.clearCookie('session', { path: '/', httpOnly: true });
+    // res.clearCookie('session.sig', { path: '/', httpOnly: true });
+    res.redirect('/');
   });
+
+  // function isUserAuthenticated(req, res, next) {
+  //   if (req.user) {
+  //     next();
+  //   } else {
+  //     res.redirect('/');
+  //   }
+  // }
+
+  // app.get('/profile/:id', isUserAuthenticated, (req, res, next) => {
+  //   res.send('You have reached the secret route');
+  // });
 };

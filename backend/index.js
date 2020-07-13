@@ -28,7 +28,7 @@ mogoose
 
 app.use(
   cookieSession({
-    name: 'ayan',
+    name: 'college',
     maxAge: 30 * 24 * 60 * 60 * 1000,
     keys: [keys.cookieKey],
   })
