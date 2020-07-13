@@ -5,13 +5,16 @@ import { connect } from 'react-redux';
 
 const Profile = (props) => {
   const renderContent = () => {
-    switch (props.user) {
-      case null:
-        return <a href='/'>Loading</a>;
-      case false:
-        return props.history.push('/');
-      default:
-        return <UserProfilePage />;
+    if (props.user.loading) {
+      return <div className=''>Loading</div>;
+    }
+
+    if (props.user.isAuthenticated) {
+      console.log('reached');
+      return <UserProfilePage />;
+    } else {
+      console.log('not authenticated');
+      return props.history.push('/');
     }
   };
   return <div className=''>{renderContent()}</div>;

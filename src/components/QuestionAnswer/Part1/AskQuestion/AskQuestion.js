@@ -81,7 +81,6 @@ class AskQuestion extends Component {
         this.setState({value : e.target.value})
     }
     removetag = (e,tag) => {
-        console.log(tag,"Jeelln",e)
         let v = [...this.state.tags]
         const index = v.indexOf(e);
         v.splice(index,1);

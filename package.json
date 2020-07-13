@@ -13,6 +13,7 @@
     "http-proxy-middleware": "^1.0.5",
     "jodit-react": "^1.0.51",
     "jquery": "^3.5.1",
+    "mongoose-type-url": "^2.0.0",
     "popper.js": "^1.16.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.1.1",
