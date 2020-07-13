@@ -80,7 +80,8 @@ class AskQuestion extends Component {
     changed = (e) => {
         this.setState({value : e.target.value})
     }
-    remove = (e,tag) => {
+    removetag = (e,tag) => {
+        console.log(tag,"Jeelln",e)
         let v = [...this.state.tags]
         const index = v.indexOf(e);
         v.splice(index,1);
@@ -100,10 +101,8 @@ class AskQuestion extends Component {
         }
       }
       const tags = [...this.state.tags];
-      let i = -1;
       const container = tags.map(tag => {
-        i++;
-      return <div key = {tag} className = "tag-add">{tag} <i class="fa fa-window-close" aria-hidden="true" onClick = {this.remove.bind(this,tag)}></i></div>
+      return <div key = {tag} className = "tag-add" >{tag} <div onClick = {this.removetag.bind(this,tag)}><i className="fa fa-window-close in-tag" aria-hidden="true"></i></div></div>
       });
 
       let l = false;
@@ -113,7 +112,7 @@ class AskQuestion extends Component {
         <Modal open={this.props.flag} onClose={this.props.close}>
             <h1 className = "ask-question-heading">Ask a Question</h1>
             <div className = "ask-modal-body">
-                <div><input type = "text" maxLength= "150" className = "question-text" placeholder = "Your Question" onChange = {this.changeInput.bind(this)}></input><span class="badge badge-light">{this.state.length}</span></div>
+                <div><input type = "text" maxLength= "150" className = "question-text" placeholder = "Your Question" onChange = {this.changeInput.bind(this)}></input><span className="badge badge-light">{this.state.length}</span></div>
                  <select className = "question-text"><option>Select Category</option></select>
                 <div className="RichEditor-root">
                 <BlockStyleControls
