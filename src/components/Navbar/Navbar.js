@@ -1,28 +1,32 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import LoginModal from '../LoginModal/LoginModal';
+import { logoutUser } from '../../fullredux/actions/myActions';
 const Navbar = (props) => {
-  const renderContent = () => {
-    switch (props.user) {
-      case null:
-        return <a href='/'>Loading</a>;
-      case false:
-        return (
-          <>
-            <LoginModal />
-          </>
-        );
+  const logout = () => {
+    props.logout_User();
+    props.history.push('/');
+  };
 
-      default:
-        return (
-          <>
-            <Link to={`/profile/todo/${props.user._id}`}>Todo</Link>
-            <Link to={`/profile/${props.user._id}`}>Profile</Link>
-            <a href='/api/logout'>Logout</a>
-          </>
-        );
+  const renderContent = () => {
+    if (props.user.isAuthenticated) {
+      return (
+        <>
+          <Link to={`/profile/todo/${props.user.userData._id}`}>Todo</Link>
+          <Link to={`/profile/${props.user.userData._id}`}>Profile</Link>
+          <button onClick={logout} className='btn btn-primary'>
+            Logout
+          </button>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <LoginModal />
+        </>
+      );
     }
   };
   return (
@@ -44,4 +48,12 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Navbar);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout_User: () => {
+      dispatch(logoutUser());
+    },
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar));

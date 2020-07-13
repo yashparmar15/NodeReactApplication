@@ -26,7 +26,10 @@ const LoginModal = () => {
         <div className='modal-dialog modal-dialog-login'>
           <div className='modal-content modal-login-content'>
             <div className='modal-header modal-login-header'>
-              <h5 className='modal-title modal-login-title' id='exampleModalLabel'>
+              <h5
+                className='modal-title modal-login-title'
+                id='exampleModalLabel'
+              >
                 <i className='fas fa-sign-in-alt mr-2'></i> Sign Up!
               </h5>
               <button

@@ -7,3 +7,10 @@ export const fetchUserAction = () => {
     });
   };
 };
+export const logoutUser = () => {
+  return (dispatch) => {
+    axios.get('/api/logout').then((res) => {
+      dispatch({ type: 'LOGOUT', payload: '' });
+    });
+  };
+};
