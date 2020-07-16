@@ -65,10 +65,13 @@ module.exports = (app) => {
 		const id = req.params.id;
 		console.log("Answer:", answer);
 		console.log(id);
+		console.log(req.user.username);
 
 		if (answer) {
 			const currAns = {
 				answer: answer,
+				askedBy: req.user._id,
+				username: req.user.username,
 			};
 			await Question.findById(id)
 				.exec()

@@ -17,6 +17,7 @@ const AnswerSchema = new Schema({
 		default: Date.now(),
 	},
 	answeredBy: mongoose.Schema.ObjectId,
+	username: String,
 });
 
 module.exports = AnswerSchema;

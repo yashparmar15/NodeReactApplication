@@ -14,6 +14,7 @@
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "moment": "^2.27.0",
     "mongoose": "^5.9.22",
     "passport": "^0.4.1",
     "passport-github2": "^0.1.12",
