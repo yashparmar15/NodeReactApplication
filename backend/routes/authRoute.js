@@ -37,6 +37,7 @@ module.exports = (app) => {
   app.post('/api/questions', async (req, res, next) => {
     const content = await req.body.content;
     const question = await req.body.question;
+    const askedBy = await req.user;
 
     console.log('Question:', question);
     console.log('DraftJS:', content);
@@ -44,6 +45,7 @@ module.exports = (app) => {
       new Question({
         title: question,
         description: content,
+        askedBy: askedBy,
       })
         .save()
         .then(() => {
@@ -56,14 +58,13 @@ module.exports = (app) => {
     //
   });
 
-  app.get('/api/questions', (req, res) => {
-    Question.find({})
-      .sort({
-        date: 'desc',
-      })
+  app.get('/api/questions', async (req, res) => {
+    await Question.find()
+      .populate('askedBy')
       .then((questions) => {
         res.send(questions);
-      });
+      })
+      .catch((err) => console.log(err));
   });
 
   app.get('/api/logout', async (req, res) => {
