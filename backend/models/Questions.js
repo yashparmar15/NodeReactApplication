@@ -26,7 +26,8 @@ const QuestionSchema = new Schema({
 
   // askedBy: mongoose.Schema.ObjectId,
   askedBy: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'users',
   },
 
   answers: {
