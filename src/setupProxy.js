@@ -21,4 +21,11 @@ module.exports = function (app) {
       //   changeOrigin: true,
     })
   );
+  // app.post(
+  //   '/questions',
+  //   createProxyMiddleware({
+  //     target: 'http://localhost:5000/',
+  //     //   changeOrigin: true,
+  //   })
+  // );
 };

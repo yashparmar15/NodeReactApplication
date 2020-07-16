@@ -1,4 +1,5 @@
 const passport = require('passport');
+const Question = require('../models/Questions');
 
 module.exports = (app) => {
   app.get(
@@ -31,6 +32,38 @@ module.exports = (app) => {
 
   app.get('/api/current_user', (req, res) => {
     res.send(req.user);
+  });
+
+  app.post('/api/questions', async (req, res, next) => {
+    const content = await req.body.content;
+    const question = await req.body.question;
+
+    console.log('Question:', question);
+    console.log('DraftJS:', content);
+    if (question) {
+      new Question({
+        title: question,
+        description: content,
+      })
+        .save()
+        .then(() => {
+          console.log('Saved!');
+        })
+        .catch((err) => console.log(err));
+    }
+
+    res.redirect('/questions');
+    //
+  });
+
+  app.get('/api/questions', (req, res) => {
+    Question.find({})
+      .sort({
+        date: 'desc',
+      })
+      .then((questions) => {
+        res.send(questions);
+      });
   });
 
   app.get('/api/logout', async (req, res) => {
