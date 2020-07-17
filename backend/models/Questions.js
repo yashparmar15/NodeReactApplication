@@ -29,12 +29,13 @@ const QuestionSchema = new Schema({
     type: String,
   },
 
-  answers: {
-    type: [AnswerSchema],
-  },
-  tags: {
-    type: [String],
-  },
+  answers: [{
+    type: Schema.Types.ObjectId,
+    ref:"Answer"
+  }],
+  tags: [{
+    type: String,
+  }],
 });
 
 mongoose.model('questions', QuestionSchema);

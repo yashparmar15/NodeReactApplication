@@ -12,4 +12,5 @@ const DoingSchema = new Schema({
   },
 });
 
-mongoose.model('doing', DoingSchema);
+const Doing = mongoose.model('Doing', DoingSchema);
+module.exports = Doing;

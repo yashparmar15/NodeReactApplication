@@ -7,13 +7,13 @@ import AppBuilder from './containers/AppBuilder/AppBuilder';
 import Project from './containers/Project/Project';
 import Profile from './containers/Profile/Profile';
 import ToDoMain from './containers/ToDoMain/ToDoMain';
-import { fetchUserAction } from './fullredux/actions/myActions';
+import { fetchUserAction, fetchUsersAction } from './fullredux/actions/myActions';
 import PageNotFound from './components/PageNotFound/PageNotFound';
+import UserInfoForm from './components/UserInfoForm/UserInfoForm';
 function App(props) {
   useEffect(() => {
     props.fetch_user();
   }, []);
-
   if (props.user.loading) {
     return <div className=''>Loading</div>;
   }
@@ -38,6 +38,7 @@ function App(props) {
         <Switch>
           <Route exact path='/questions' component={AppBuilder} />
           <Route exact path='/projects' component={Project} />
+          <Route exact path='/info' component={UserInfoForm} />
           {props.user.isAuthenticated ? (
             <div className=''>
               <Switch>
@@ -62,11 +63,12 @@ function App(props) {
     </>
   );
 }
-
+var id;
 const mapDispatchToProps = (dispatch) => {
   return {
     fetch_user: () => {
       dispatch(fetchUserAction());
+      dispatch(fetchUsersAction());
     },
   };
 };

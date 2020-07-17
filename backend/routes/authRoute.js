@@ -1,40 +1,67 @@
 const passport = require('passport');
+const express = require('express');
+const mongoose = require('mongoose')
+const User = require('../models/User');
+const router = express.Router();
 
-module.exports = (app) => {
-  app.get(
+
+router.get(
     '/auth/google',
     passport.authenticate('google', {
       scope: ['profile', 'email'],
     })
   );
-  app.get(
+router.get(
     '/auth/github',
     passport.authenticate('github', {
       scope: ['user: email'],
     })
   );
 
-  app.get(
+router.get(
     '/auth/google/callback',
     passport.authenticate('google'),
     (req, res) => {
-      res.redirect(`/`);
+      if(req.user.flag){
+        console.log(req.user)
+        const dummy = req.user;
+        dummy['flag'] = false;
+        User.findByIdAndUpdate(req.user._id,dummy,{runValidators : true},(err,response)=>{
+          if(err)
+            console.log(err);  
+        });
+        res.redirect(`/info`);
+      }
+      else
+        res.redirect('/')
     }
-  );
-  app.get(
+);
+router.get(
     '/auth/github/callback',
     passport.authenticate('github'),
     (req, res) => {
-      res.redirect(`/`);
+      if(req.user.flag){
+        console.log(req.user)
+        const dummy = req.user;
+        dummy['flag'] = false;
+        User.findByIdAndUpdate(req.user._id,dummy,{runValidators : true},(err,response)=>{
+          if(err)
+            console.log(err);  
+        });
+        res.redirect(`/info`);
+      }
+      else
+        res.redirect('/')
     }
   );
 
-  app.get('/api/current_user', (req, res) => {
+router.get('/api/current_user', (req, res) => {
     res.send(req.user);
-  });
+});
 
-  app.get('/api/logout', (req, res) => {
+router.get('/api/logout', (req, res) => {
     req.logout();
     res.redirect(`/`);
-  });
-};
+});
+
+module.exports = router;

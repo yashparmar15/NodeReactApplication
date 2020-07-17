@@ -5,30 +5,31 @@ require("mongoose-type-url");
 const ProjectSchema = new Schema({
 	description: {
 		type: String,
-		required: true,
+		required: true
 	},
 	title: {
 		type: Number,
-		required: true,
+		required: true
 	},
 
 	date: {
 		type: Date,
-		default: Date.now(),
+		default: Date.now()
 	},
 	tags: {
-		type: [String],
+		type: [String]
 	},
 
 	projectBy: mongoose.Schema.ObjectId,
 
 	githubLink: {
-		type: mongoose.SchemaType.Url,
-		required: true,
+		type: String,
+		required: true
 	},
 	deploymentLink: {
-		type: mongoose.SchemaType.Url,
+		type: String
 	},
 });
 
-mongoose.model("projects", ProjectSchema);
+const Project = mongoose.model("Project", ProjectSchema);
+module.exports = Project;

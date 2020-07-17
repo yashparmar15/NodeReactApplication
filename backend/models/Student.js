@@ -1,77 +1,96 @@
 const mongoose = require('mongoose');
 // const { batch } = require("react-redux");
+require('mongoose-type-url');
 const Schema = mongoose.Schema;
-const ProjectSchema = require('./Projects');
-const TodoSchema = require('./TodoModel');
-const DoneSchema = require('./Done');
-const DoingSchema = require('./Doing');
+
 const StudentSchema = new Schema({
+  id : {
+    type : Schema.Types.ObjectId,
+    ref : "User"
+  },
   name: {
     type: String,
-    required: true,
+    required: true
   },
-  college_name: {
+  gender :{
+    type:String,
+    required:true
+  },
+  email :{
+    type:String,
+    required : true
+  },
+  college: {
     type: String,
-    required: true,
+    required: true
   },
-  github_id: {
+  github: {
     type: String,
+    default : "NaN",
   },
-  linkedin_id: {
-    type: String, // URL ayega shyd
+  linkedin: {
+    type: String,
+    default : "NaN",
   },
   about: {
-    type: String,
+    type: String
   },
-  batch: {
+  year: {
     type: Number,
-    required: true,
+    required: true
   },
-  work_exp: Number,
+  exp: Number,
   branch: {
     type: String,
+    required : true
   },
   followers: {
     type: Number,
-    default: 0,
+    default: 0
   },
   following: {
     type: Number,
-    default: 0,
+    default: 0
   },
   views_on_profile: {
     type: Number,
-    default: 0,
+    default: 0
   },
-  skills: {
-    type: [String],
+  skills: [{
+    type: String
+  }],
+  phone: {
+    type: String,
+    default : "NaN",
   },
-  phone_number: {
-    type: Number,
-  },
-  projects: {
-    type: [ProjectSchema],
-  },
+  projects: [{
+    type: Schema.Types.ObjectId,
+    ref: "Project"
+  }],
   likes: {
     type: Number,
-    default: 0,
+    default: 0
   },
-  join_date: {
+  joindate: {
     type: Date,
-    default: Date.now(),
+    default: Date.now()
   },
   // posts: {
   // 	type: [PostSchema],
   // },
-  todo: {
-    type: [TodoSchema],
-  },
-  done: {
-    type: [DoneSchema],
-  },
-  doing: {
-    type: [DoingSchema],
-  },
+  todo: [{
+    type: Schema.Types.ObjectId,
+    ref: "Todo"
+  }],
+  done: [{
+    type: Schema.Types.ObjectId,
+    ref: "Done"
+  }],
+  doing: [{
+    type: Schema.Types.ObjectId,
+    ref: "Doing"
+  }]
 });
 
-mongoose.model('students', StudentSchema);
+const Student = mongoose.model('Student', StudentSchema);
+module.exports = Student;

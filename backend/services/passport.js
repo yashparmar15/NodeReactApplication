@@ -3,7 +3,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const GithubStrategy = require('passport-github2').Strategy;
 const keys = require('../config/keys');
 const mongoose = require('mongoose');
-const User = mongoose.model('users');
+const User = require('../models/User');
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -24,7 +24,7 @@ passport.use(
     },
 
     (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
+      // console.log(profile);
       User.findOne({ email: profile._json.email }).then((existingUser) => {
         if (existingUser) {
           done(null, existingUser);
@@ -58,7 +58,7 @@ passport.use(
       // User.findOrCreate({ githubId: profile.id }, function (err, user) {
       //   return done(err, user);
       // });
-      console.log('Profile: ', profile);
+      // console.log('Profile: ', profile);
       User.findOne({ email: profile._json.email }).then((existingUser) => {
         if (existingUser) {
           done(null, existingUser);

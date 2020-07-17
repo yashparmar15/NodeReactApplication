@@ -6,6 +6,11 @@ const userSchema = new Schema({
   username: String,
   picture: String,
   email: String,
+  flag : {
+    type : Boolean,
+    default : true
+  }
 });
 
-mongoose.model('users', userSchema);
+const User = mongoose.model('User', userSchema);
+module.exports = User;

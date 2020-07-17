@@ -19,4 +19,5 @@ const AnswerSchema = new Schema({
   answeredBy: mongoose.Schema.ObjectId,
 });
 
-mongoose.model('answers', AnswerSchema);
+const Answer = mongoose.model('Answer', AnswerSchema);
+module.exports = Answer;

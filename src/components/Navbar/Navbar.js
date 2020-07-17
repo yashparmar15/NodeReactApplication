@@ -34,7 +34,6 @@ const Navbar = (props) => {
       <nav className='nav navbar bg-dark text-primary d-flex justify-content-around'>
         <Link to='/questions'>Questions Page</Link>
         <Link to='/projects'>Projects</Link>
-
         <Link to='/'>Home</Link>
         {renderContent()}
       </nav>
