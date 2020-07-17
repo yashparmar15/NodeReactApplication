@@ -17,15 +17,22 @@ class UserProfilePage extends Component {
     super(props);
   }
   state = {
-      cur_user : {},
+      cur_user : '',
       join : ''
   }
   componentDidMount = () =>{
+    var flag = true;
     this.props.users.usersData.map(a =>{
-      if(a.id === this.props.user.userData._id)
+      if(a.id === this.props.user.userData._id){
         this.setState({cur_user : a});
         this.setState({join : a.joindate});
+        flag = false;
+      }
     })
+    console.log(flag)
+    if(flag){
+      window.location = '/info';
+    }
     console.log(this.state.cur_user ,"Hello");
   }
   render(){
