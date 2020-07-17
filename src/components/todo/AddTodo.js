@@ -1,38 +1,14 @@
 import React, { Component} from "react";
 import { Button, Modal } from "react-bootstrap";
-import {connect} from 'react-redux';
-import axios from "axios";
 class AddTodo extends Component {
 	state = {
 		task: "",
 		description: "",
-		cur_user : {},
 	};
-	componentDidMount =()=>{
-		var Cur;
-		this.props.users.usersData.map(U =>{
-			if(U.id === this.props.user.userData._id)
-				Cur = U;
-		});
-		this.setState({cur_user : Cur});
-	}
+
 	onSubmit = (e) => {
 		e.preventDefault();
-		const todoadd = {
-			task : this.state.task,
-			description : this.state.description,
-		}
-		const todoArray = [...this.state.cur_user.todo];
-		todoArray.push(todoadd);
-		const C = {
-			...this.state.cur_user,
-			todo : todoArray
-		}
-		// console.log(C);
-		axios.post('http://localhost:5000/user/addtodo',{C}).then(res => {
-            // console.log(res);
-		})
-		window.location = `/profile/todo/${C.id}`
+		this.props.addTodo(this.state.task, this.state.description);
 		this.setState({ task: "", description: "" });
 	};
 
@@ -93,12 +69,5 @@ class AddTodo extends Component {
 		);
 	}
 }
-const mapStateToProps = (state) => {
-	return {
-	  user: state.auth,
-	  users:state.user,
-	};
-};
 
-
-export default connect(mapStateToProps)(AddTodo);
+export default AddTodo;

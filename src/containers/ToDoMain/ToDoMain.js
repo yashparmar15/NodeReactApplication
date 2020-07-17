@@ -3,28 +3,34 @@ import Todo from '../../components/todo/Todo';
 import Doing from '../../components/todo/Doing';
 import Done from '../../components/todo/Done';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+
+import {connect} from 'react-redux';
 
 import './ToDoMain.css';
 
 class ToDoMain extends Component {
   state = {
+    cur_user : {},
     todos: [
-      { id: uuidv4(), task: 'kya kr rha', description: 'Bs kuch khas nhi' },
-      {
-        id: uuidv4(),
-        task: 'kuch nhi  kr rha',
-        description: 'Bs kuch khas nhi',
-      },
+      
     ],
     doings: [
-      {
-        id: uuidv4(),
-        task: 'velle h bc kya kre 3 bje rat ko',
-        description: 'Chup sale',
-      },
     ],
     dones: [],
   };
+
+  componentDidMount = () =>{
+    var Cur ;
+    this.props.users.usersData.map(U => {
+      if(U.id === this.props.user.userData._id)
+        Cur = U;
+    })
+    this.setState({cur_user : Cur});
+    this.setState({todos : Cur.todo});
+    this.setState({doings : Cur.doing});
+    this.setState({dones : Cur.done});
+  }
 
   delTodo = (id) => {
     this.setState({
@@ -34,33 +40,57 @@ class ToDoMain extends Component {
 
   addTodo = (task, description) => {
     const newtodo = {
-      id: uuidv4(),
       task: task,
       description: description,
     };
+    var updatedtodo = [...this.state.todos]
+    updatedtodo.push(newtodo);
+    const C = {
+      ...this.state.cur_user,
+      todo : updatedtodo,
+    }
 
-    this.setState({ todos: [...this.state.todos, newtodo] });
+    axios.post('http://localhost:5000/user/addtodo',{C}).then(res => {
+          this.setState({cur_user : C});
+          this.setState({todos : C.todo})  
+    })
+    // this.setState({ todos: [...this.state.todos, newtodo] });
   };
 
   addDoing = (task, description) => {
-    const newtodo = {
-      id: uuidv4(),
+    const newdoing = {
       task: task,
       description: description,
     };
+    var updateddoing = [...this.state.doings]
+    updateddoing.push(newdoing);
+    const C = {
+      ...this.state.cur_user,
+      doing : updateddoing,
+    }
 
-    this.setState({ doings: [...this.state.doings, newtodo] });
+    axios.post('http://localhost:5000/user/adddoing',{C}).then(res => {
+          this.setState({cur_user : C});
+          this.setState({doings : C.doing})  
+    })
   };
 
   addDone = (task, description) => {
-    console.log(task);
-    const newtodo = {
-      id: uuidv4(),
+    const newdone = {
       task: task,
       description: description,
     };
+    var updateddone = [...this.state.dones]
+    updateddone.push(newdone);
+    const C = {
+      ...this.state.cur_user,
+      done : updateddone,
+    }
 
-    this.setState({ dones: [...this.state.dones, newtodo] });
+    axios.post('http://localhost:5000/user/adddone',{C}).then(res => {
+          this.setState({cur_user : C});
+          this.setState({dones : C.done})  
+    })
   };
 
   deldone = (id) => {
@@ -167,8 +197,11 @@ class ToDoMain extends Component {
   }
 }
 
-// const style = {
-//   width: '30%',
-// };
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth,
+    users:state.user,
+  };
+};
 
-export default ToDoMain;
+export default connect(mapStateToProps)(ToDoMain);

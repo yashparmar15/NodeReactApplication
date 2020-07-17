@@ -1,22 +1,12 @@
 import React from 'react';
 import DoingItem from './DoingItem';
 import AddDoing from './AddDoing';
-import {connect} from 'react-redux';
 
 class Doing extends React.Component {
   state = {
     addModalShow: false,
-    cur_user : [],
   };
-  componentDidMount =()=>{
-		var Cur;
-		this.props.users.usersData.map(U =>{
-			if(U.id === this.props.user.userData._id)
-				Cur = U.doing;
-		});
-    this.setState({cur_user : Cur});
-    // console.log(Cur);
-	}
+
   onHide = () => {
     this.setState({ addModalShow: false });
   };
@@ -40,10 +30,10 @@ class Doing extends React.Component {
             onHide={this.onHide}
             addDoing={this.props.addDoing}
           />
-          {this.state.cur_user.map((doing) => {
+          {this.props.doings.map((doing) => {
             return (
               <DoingItem
-                key={doing._id}
+                key={doing.id}
                 doing={doing}
                 laterdoing={this.props.laterdoing}
                 donetodo={this.props.donetodo}
@@ -55,10 +45,5 @@ class Doing extends React.Component {
     );
   }
 }
-const mapStateToProps = (state) => {
-	return {
-	  user: state.auth,
-	  users:state.user,
-	};
-};
-export default connect(mapStateToProps)(Doing);
+
+export default Doing;
