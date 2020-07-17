@@ -18,6 +18,7 @@ function Questions(props) {
               totalanswers={Q.answers.length}
               askedBy={Q.askedBy}
               date={Q.date}
+              allTags={Q.tags}
             />{' '}
           </span>
         ))}

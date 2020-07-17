@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 import {
   Editor,
   EditorState,
@@ -15,6 +17,8 @@ import '../../../../../node_modules/draft-js/dist/Draft.css';
 import './AskQuestion.css';
 import { withRouter } from 'react-router-dom';
 
+const animatedComponents = makeAnimated();
+
 class AskQuestion extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +26,13 @@ class AskQuestion extends Component {
       editorState: EditorState.createEmpty(),
       question: '',
       length: 150,
-      tags: [],
+      tags: [
+        { value: 'Python', label: 'Python' },
+        { value: 'Java', label: 'Java' },
+        { value: 'C++', label: 'C++' },
+        { value: 'ReactJS', label: 'ReactJS' },
+        { value: 'NodeJs', label: 'NodeJs' },
+      ],
       value: '',
       finish: false,
       description: '',
@@ -30,11 +40,35 @@ class AskQuestion extends Component {
       className_submit: 'btn btn-primary btn-md',
     };
 
-    this.saveContent = (question, content) => {
+    this.customTheme = (theme) => {
+      return {
+        ...theme,
+        colors: {
+          ...theme.colors,
+          primary25: 'orange',
+          primary: 'green',
+        },
+      };
+    };
+    let allTags = [];
+    this.handleTagChange = (selectedTag) => {
+      allTags = [];
+      this.setState({ selectedTag });
+      if (selectedTag) {
+        selectedTag.map((o) => {
+          allTags.push(o.value);
+          console.log(allTags);
+          return allTags;
+        });
+      }
+    };
+
+    this.saveContent = (question, content, allTags) => {
       axios
         .post('/api/questions', {
           question,
           content: JSON.stringify(convertToRaw(content)),
+          allTags,
         })
         .then(() => {
           props.history.push('/');
@@ -65,7 +99,7 @@ class AskQuestion extends Component {
         });
       }, 2000);
 
-      this.saveContent(this.state.question, this.state.description);
+      this.saveContent(this.state.question, this.state.description, allTags);
       window.location.reload(false);
       this.props.history.push('/questions');
     };
@@ -128,6 +162,7 @@ class AskQuestion extends Component {
     if (e.keyCode === 13) {
       this.state.tags.push(e.target.value);
       this.setState({ value: '' });
+      console.log(this.state.tags);
     }
   };
 
@@ -183,6 +218,7 @@ class AskQuestion extends Component {
                 className='question-text'
                 placeholder='Your Question'
                 onChange={this.changeInput.bind(this)}
+                required
               ></input>
               <span className='badge badge-light'>{this.state.length}</span>
             </div>
@@ -212,7 +248,7 @@ class AskQuestion extends Component {
                 />
               </div>
             </div>
-            <div className='add-tags'>
+            {/* <div className='add-tags'>
               <p>Press enter to add new tag</p>
               <input
                 type='text'
@@ -223,10 +259,28 @@ class AskQuestion extends Component {
                 disabled={l}
               />
               <div className='tags-max'>{container}</div>
+            </div> */}
+
+            <div className='mt-3'>
+              <h5>Tags:</h5>
             </div>
+
+            <Select
+              closeMenuOnSelect={false}
+              components={animatedComponents}
+              //   defaultValue={options}
+              isMulti
+              options={this.state.tags}
+              placeholder='Tags..'
+              theme={this.customTheme}
+              // onChange={setName}
+              onChange={this.handleTagChange}
+              noOptionsMessage={() => 'Tag not found 😞 '}
+              className='mb-3'
+            />
             <button
               type='submit'
-              onClick={this.props.close}
+              // onClick={this.props.close}
               className={this.state.className_submit}
             >
               {this.state.Submit}{' '}
