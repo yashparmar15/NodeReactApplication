@@ -73,6 +73,57 @@ router.post('/change', (req, res, next) => {
   );
 });
 
+router.post('/addtodo', (req, res, next) => {
+  // console.log(req.body.dataUser)
+  // console.log(req.body.C.todo);
+  // console.log(req.body.C._id)
+  Student.findByIdAndUpdate(
+    { _id: req.body.C._id },
+    { todo: req.body.C.todo },
+    function (err, result) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+router.post('/adddone', (req, res, next) => {
+  // console.log(req.body.dataUser)
+  // console.log(req.body.C.done);
+  // console.log(req.body.C._id)
+  Student.findByIdAndUpdate(
+    { _id: req.body.C._id },
+    { done: req.body.C.done },
+    function (err, result) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+router.post('/adddoing', (req, res, next) => {
+  // console.log(req.body.dataUser)
+  // console.log(req.body.C.done);
+  // console.log(req.body.C._id)
+  Student.findByIdAndUpdate(
+    { _id: req.body.C._id },
+    { doing: req.body.C.doing },
+    function (err, result) {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
 router.post('/updateuser', (req, res, next) => {
   Student.findByIdAndUpdate(
     { _id: req.body.Current._id },

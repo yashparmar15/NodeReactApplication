@@ -79,16 +79,28 @@ const StudentSchema = new Schema({
   // 	type: [PostSchema],
   // },
   todo: [{
-    type: Schema.Types.ObjectId,
-    ref: "Todo"
+      task : {
+        type:String,
+      },
+      description : {
+        type:String,
+      }
   }],
   done: [{
-    type: Schema.Types.ObjectId,
-    ref: "Done"
+    task : {
+      type:String,
+    },
+    description : {
+      type:String,
+    }
   }],
   doing: [{
-    type: Schema.Types.ObjectId,
-    ref: "Doing"
+    task : {
+      type:String,
+    },
+    description : {
+      type:String,
+    }
   }]
 });
 
