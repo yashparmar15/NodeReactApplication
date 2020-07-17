@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Answer = require('./Answers');
 const Schema = mongoose.Schema;
 
 const QuestionSchema = new Schema({
@@ -29,13 +30,15 @@ const QuestionSchema = new Schema({
     ref: 'User',
   },
 
-  answers: [{
-    type: Schema.Types.ObjectId,
-    ref:"Answer"
-  }],
-  tags: [{
-    type: String,
-  }],
+  answers: {
+    type: [Answer.schema],
+  },
+
+  tags: [
+    {
+      type: String,
+    },
+  ],
 });
 
 module.exports = mongoose.model('questions', QuestionSchema);
