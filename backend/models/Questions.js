@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const AnswerSchema = require('./Answers');
 
 const QuestionSchema = new Schema({
   title: {
@@ -26,7 +25,8 @@ const QuestionSchema = new Schema({
 
   // askedBy: mongoose.Schema.ObjectId,
   askedBy: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
   },
 
   answers: [{
@@ -38,4 +38,4 @@ const QuestionSchema = new Schema({
   }],
 });
 
-mongoose.model('questions', QuestionSchema);
+module.exports = mongoose.model('questions', QuestionSchema);

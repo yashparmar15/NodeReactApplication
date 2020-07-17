@@ -13,8 +13,9 @@ app.use(bodyParser.json());
 app.use('/public', express.static('public'));
 const PORT = process.env.PORT || 5000;
 
-const userRoute = require('./routes/userRoute');
+
 const authRoute = require('./routes/authRoute');
+const userRoute = require('./routes/userRoute');
 
 
 require('./services/passport');
@@ -34,7 +35,7 @@ mogoose
 
 app.use(
   cookieSession({
-    name: 'ayan',
+    name: 'college',
     maxAge: 30 * 24 * 60 * 60 * 1000,
     keys: [keys.cookieKey],
   })

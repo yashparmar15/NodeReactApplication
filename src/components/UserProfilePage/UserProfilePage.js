@@ -21,7 +21,6 @@ class UserProfilePage extends Component {
       join : ''
   }
   componentDidMount = () =>{
-    console.log("heloo")
     this.props.users.usersData.map(a =>{
       if(a.id === this.props.user.userData._id)
         this.setState({cur_user : a});

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
-import Select from 'react-select';
-import makeAnimated from 'react-select/animated';
 import {
   Editor,
   EditorState,
@@ -11,64 +9,30 @@ import {
   convertToRaw,
 } from 'draft-js';
 import axios from 'axios';
-
-import '../../../../../node_modules/draft-js/dist/Draft.css';
-
-import './AskQuestion.css';
 import { withRouter } from 'react-router-dom';
+import draftToHtml from 'draftjs-to-html';
 
-const animatedComponents = makeAnimated();
+import './Answer.css';
+import moment from 'moment';
 
-class AskQuestion extends Component {
+class Answers extends Component {
   constructor(props) {
     super(props);
     this.state = {
       editorState: EditorState.createEmpty(),
-      question: '',
-      length: 150,
-      tags: [
-        { value: 'Python', label: 'Python' },
-        { value: 'Java', label: 'Java' },
-        { value: 'C++', label: 'C++' },
-        { value: 'ReactJS', label: 'ReactJS' },
-        { value: 'NodeJs', label: 'NodeJs' },
-      ],
-      value: '',
       finish: false,
-      description: '',
+      answer: '',
       Submit: 'Submit',
+      id: this.props.id,
       className_submit: 'btn btn-primary btn-md',
     };
 
-    this.customTheme = (theme) => {
-      return {
-        ...theme,
-        colors: {
-          ...theme.colors,
-          primary25: 'orange',
-          primary: 'green',
-        },
-      };
-    };
-    let allTags = [];
-    this.handleTagChange = (selectedTag) => {
-      allTags = [];
-      this.setState({ selectedTag });
-      if (selectedTag) {
-        selectedTag.map((o) => {
-          allTags.push(o.value);
-          console.log(allTags);
-          return allTags;
-        });
-      }
-    };
-
-    this.saveContent = (question, content, allTags) => {
+    this.saveContent = (answer) => {
+      console.log(answer);
+      console.log(this.state.id);
       axios
-        .post('/api/questions', {
-          question,
-          content: JSON.stringify(convertToRaw(content)),
-          allTags,
+        .post(`/api/questions/${this.state.id}`, {
+          answer: JSON.stringify(convertToRaw(answer)),
         })
         .then(() => {
           props.history.push('/');
@@ -79,14 +43,14 @@ class AskQuestion extends Component {
     this.onChange = (editorState) => {
       const contentState = editorState.getCurrentContent();
       this.setState({
-        description: contentState,
+        answer: contentState,
       });
 
       this.setState({ editorState });
     };
     this.onSubmit = (e) => {
+      console.log(this.state.answer);
       e.preventDefault();
-      // const contentState = editorState.getCurrentContent();
       this.setState({
         Submit: 'Submiited!',
         className_submit: 'btn btn-success btn-md',
@@ -99,7 +63,7 @@ class AskQuestion extends Component {
         });
       }, 2000);
 
-      this.saveContent(this.state.question, this.state.description, allTags);
+      this.saveContent(this.state.answer);
       window.location.reload(false);
       this.props.history.push('/questions');
     };
@@ -148,34 +112,6 @@ class AskQuestion extends Component {
       editorState,
     });
   };
-  changeInput = (e) => {
-    this.setState(
-      {
-        length: 150 - e.target.value.length,
-        question: e.target.value,
-      }
-      // console.log(this.state.question)
-    );
-  };
-  keyPressed = (e) => {
-    this.setState({ value: e.target.value });
-    if (e.keyCode === 13) {
-      this.state.tags.push(e.target.value);
-      this.setState({ value: '' });
-      console.log(this.state.tags);
-    }
-  };
-
-  changed = (e) => {
-    this.setState({ value: e.target.value });
-  };
-  removetag = (e, tag) => {
-    let v = [...this.state.tags];
-    const index = v.indexOf(e);
-    v.splice(index, 1);
-    this.setState({ tags: v });
-  };
-
   render() {
     const { editorState } = this.state;
     if (!this.state.editorState) {
@@ -191,38 +127,18 @@ class AskQuestion extends Component {
         className += ' RichEditor-hidePlaceholder';
       }
     }
-    const tags = [...this.state.tags];
-    const container = tags.map((tag) => {
-      return (
-        <div key={tag} className='tag-add'>
-          {tag}{' '}
-          <div onClick={this.removetag.bind(this, tag)}>
-            <i className='fa fa-window-close in-tag' aria-hidden='true'></i>
-          </div>
-        </div>
-      );
-    });
-
-    let l = false;
-    if (this.state.tags.length >= 5) l = true;
     return (
-      <Modal open={this.props.flag} onClose={this.props.close}>
-        <h1 className='ask-question-heading'>Ask a Question</h1>
+      <Modal
+        open={this.props.flag}
+        onClose={this.props.close}
+        classNames={{
+          modal: 'answer-modal',
+        }}
+      >
+        <h1 className='ask-question-heading'>Answers</h1>
         <div className='ask-modal-body'>
           <form method='post' onSubmit={this.onSubmit}>
-            <div>
-              <input
-                name='question'
-                type='text'
-                maxLength='150'
-                className='question-text'
-                placeholder='Your Question'
-                onChange={this.changeInput.bind(this)}
-                required
-              ></input>
-              <span className='badge badge-light'>{this.state.length}</span>
-            </div>
-            <h5 className='mt-2 mb-1'>Description:</h5>
+            <h5 className='mt-2 mb-1'>Enter Your Answer!</h5>
             <div className='RichEditor-root'>
               <BlockStyleControls
                 editorState={editorState}
@@ -242,50 +158,46 @@ class AskQuestion extends Component {
                   // onEditorStateChange={this.handleEditorChange}
                   onChange={this.onChange}
                   // onSubmit={this.onSubmit}
-                  placeholder='Question Description...'
+                  placeholder='Answer..'
                   ref='editor'
                   spellCheck={true}
                 />
               </div>
             </div>
-            {/* <div className='add-tags'>
-              <p>Press enter to add new tag</p>
-              <input
-                type='text'
-                placeholder='Tag(max 5)'
-                onKeyDown={this.keyPressed}
-                onChange={this.changed.bind(this)}
-                value={this.state.value}
-                disabled={l}
-              />
-              <div className='tags-max'>{container}</div>
-            </div> */}
 
-            <div className='mt-3'>
-              <h5>Tags:</h5>
-            </div>
-
-            <Select
-              closeMenuOnSelect={false}
-              components={animatedComponents}
-              //   defaultValue={options}
-              isMulti
-              options={this.state.tags}
-              placeholder='Tags..'
-              theme={this.customTheme}
-              // onChange={setName}
-              onChange={this.handleTagChange}
-              noOptionsMessage={() => 'Tag not found 😞 '}
-              className='mb-3'
-            />
             <button
               type='submit'
-              // onClick={this.props.close}
-              className={this.state.className_submit}
+              onClick={this.props.close}
+              className={`my-3 rounded-0 ${this.state.className_submit}`}
             >
               {this.state.Submit}{' '}
             </button>
           </form>
+          <div className=''>
+            <h5>All Answers ({this.props.answers.length})</h5>
+            {this.props.answers.map((Ans) => (
+              <span key={Ans._id} className=''>
+                <div className='card my-2 border-bottom-info p-2 rounded-0'>
+                  {' '}
+                  <h6
+                    className=''
+                    dangerouslySetInnerHTML={{
+                      __html: draftToHtml(JSON.parse(Ans.answer)),
+                    }}
+                  ></h6>{' '}
+                </div>
+                <div className='credential'>
+                  <div className='answer-name'>
+                    <kbd>~ {Ans.username}</kbd>
+                  </div>
+                  <div className='blockquote-footer'>
+                    {moment(Ans.date).format('DD/MM/YYYY')}
+                  </div>
+                </div>
+                <hr />
+              </span>
+            ))}
+          </div>
         </div>
       </Modal>
     );
@@ -395,4 +307,4 @@ const InlineStyleControls = (props) => {
   );
 };
 
-export default withRouter(AskQuestion);
+export default withRouter(Answers);
