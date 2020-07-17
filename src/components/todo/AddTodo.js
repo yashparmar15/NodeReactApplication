@@ -31,7 +31,8 @@ class AddTodo extends Component {
 		// console.log(C);
 		axios.post('http://localhost:5000/user/addtodo',{C}).then(res => {
             // console.log(res);
-        })
+		})
+		window.location = `/profile/todo/${C.id}`
 		this.setState({ task: "", description: "" });
 	};
 

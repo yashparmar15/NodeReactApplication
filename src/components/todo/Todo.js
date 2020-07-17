@@ -2,13 +2,23 @@ import React from 'react';
 import TodoItem from './TodoItem';
 // import Proptypes from "prop-types";
 import AddTodo from './AddTodo';
-// import axios from "axios";
+import axios from "axios";
+import {connect} from 'react-redux';
 
 class Todo extends React.Component {
   state = {
     addModalShow: false,
+    cur_user : [],
   };
-
+  componentDidMount =()=>{
+		var Cur;
+		this.props.users.usersData.map(U =>{
+			if(U.id === this.props.user.userData._id)
+				Cur = U.todo;
+		});
+    this.setState({cur_user : Cur});
+    // console.log(Cur);
+	}
   onHide = () => {
     this.setState({ addModalShow: false });
   };
@@ -32,10 +42,10 @@ class Todo extends React.Component {
             onHide={this.onHide}
             addTodo={this.props.addTodo}
           />
-          {this.props.todos.map((todo) => {
+          {this.state.cur_user.map((todo) => {
             return (
               <TodoItem
-                key={todo.id}
+                key={todo._id}
                 todo={todo}
                 delTodo={this.props.delTodo}
                 letsdo={this.props.letsdo}
@@ -47,14 +57,11 @@ class Todo extends React.Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+	return {
+	  user: state.auth,
+	  users:state.user,
+	};
+};
 
-// const style = {
-// 	width: "30%",
-// };
-
-// Todo.propTypes = {
-// 	todos: Proptypes.array.isRequired,
-// 	delTOdo: Proptypes.func.isRequired,
-// };
-
-export default Todo;
+export default connect(mapStateToProps)(Todo);
