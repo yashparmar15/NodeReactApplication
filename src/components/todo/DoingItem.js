@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class DoingItem extends Component {
   render() {
-    const { id, task, description } = this.props.doing;
+    const { _id, task, description } = this.props.doing;
 
     return (
       <div style={style}>
@@ -13,7 +13,7 @@ class DoingItem extends Component {
             <div className='d-flex justify-content-around container'>
               <button
                 className='btn btn-primary btn-md rounded-0'
-                onClick={this.props.laterdoing.bind(this, id)}
+                onClick={this.props.laterdoing.bind(this, _id)}
               >
                 Later{' '}
                 <span role='img' aria-label='todo'>
@@ -22,7 +22,7 @@ class DoingItem extends Component {
               </button>
               <button
                 className='btn btn-success btn-md rounded-0'
-                onClick={this.props.donetodo.bind(this, id)}
+                onClick={this.props.donetodo.bind(this, _id)}
               >
                 Done!{' '}
                 <span role='img' aria-label='todo'>
