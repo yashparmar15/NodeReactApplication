@@ -3,126 +3,246 @@ import Todo from '../../components/todo/Todo';
 import Doing from '../../components/todo/Doing';
 import Done from '../../components/todo/Done';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
+
+import {connect} from 'react-redux';
 
 import './ToDoMain.css';
 
 class ToDoMain extends Component {
   state = {
+    cur_user : {},
     todos: [
-      { id: uuidv4(), task: 'kya kr rha', description: 'Bs kuch khas nhi' },
-      {
-        id: uuidv4(),
-        task: 'kuch nhi  kr rha',
-        description: 'Bs kuch khas nhi',
-      },
+      
     ],
     doings: [
-      {
-        id: uuidv4(),
-        task: 'velle h bc kya kre 3 bje rat ko',
-        description: 'Chup sale',
-      },
     ],
     dones: [],
   };
 
+  componentDidMount = () =>{
+    var Cur ;
+    this.props.users.usersData.map(U => {
+      if(U.id === this.props.user.userData._id)
+        Cur = U;
+    })
+    this.setState({cur_user : Cur});
+    this.setState({todos : Cur.todo});
+    this.setState({doings : Cur.doing});
+    this.setState({dones : Cur.done});
+  }
+
   delTodo = (id) => {
-    this.setState({
-      todos: [...this.state.todos.filter((todo) => todo.id !== id)],
-    });
+    // console.log(id)
+    const  tod = [...this.state.todos.filter((todo) => todo._id !== id)]
+    const C = {
+      ...this.state.cur_user,
+      todo : tod
+    }
+    // console.log(tod);
+    axios.post('http://localhost:5000/user/addtodo',{C}).then(res => {
+          this.setState({cur_user : C});
+          this.setState({todos : C.todo})  
+    })
+
   };
 
   addTodo = (task, description) => {
     const newtodo = {
-      id: uuidv4(),
       task: task,
       description: description,
     };
+    var updatedtodo = [...this.state.todos]
+    updatedtodo.push(newtodo);
+    const C = {
+      ...this.state.cur_user,
+      todo : updatedtodo,
+    }
 
-    this.setState({ todos: [...this.state.todos, newtodo] });
+    axios.post('http://localhost:5000/user/addtodo',{C}).then(res => {
+          this.setState({cur_user : C});
+          this.setState({todos : C.todo})  
+    })
+    // this.setState({ todos: [...this.state.todos, newtodo] });
   };
 
   addDoing = (task, description) => {
-    const newtodo = {
-      id: uuidv4(),
+    const newdoing = {
       task: task,
       description: description,
     };
+    var updateddoing = [...this.state.doings]
+    updateddoing.push(newdoing);
+    const C = {
+      ...this.state.cur_user,
+      doing : updateddoing,
+    }
 
-    this.setState({ doings: [...this.state.doings, newtodo] });
+    axios.post('http://localhost:5000/user/adddoing',{C}).then(res => {
+          this.setState({cur_user : C});
+          this.setState({doings : C.doing})  
+    })
   };
 
   addDone = (task, description) => {
-    console.log(task);
-    const newtodo = {
-      id: uuidv4(),
+    const newdone = {
       task: task,
       description: description,
     };
+    var updateddone = [...this.state.dones]
+    updateddone.push(newdone);
+    const C = {
+      ...this.state.cur_user,
+      done : updateddone,
+    }
 
-    this.setState({ dones: [...this.state.dones, newtodo] });
+    axios.post('http://localhost:5000/user/adddone',{C}).then(res => {
+          this.setState({cur_user : C});
+          this.setState({dones : C.done})  
+    })
   };
 
   deldone = (id) => {
-    this.setState({
-      dones: [...this.state.dones.filter((done) => done.id !== id)],
-    });
+    const  tod = [...this.state.dones.filter((todo) => todo._id !== id)]
+    const C = {
+      ...this.state.cur_user,
+      done : tod
+    }
+    // console.log(tod);
+    axios.post('http://localhost:5000/user/adddone',{C}).then(res => {
+          this.setState({cur_user : C});
+          this.setState({dones : C.done})  
+    })
   };
 
   laterdoing = (id) => {
-    const x = this.state.doings.filter((doing) => doing.id === id);
-
+    const x = this.state.doings.filter((doing) => doing._id === id);
     const laterdoing = {
-      id: x[0].id,
+      _id : x[0]._id,
       task: x[0].task,
       description: x[0].description,
     };
-    this.setState({ todos: [...this.state.todos, laterdoing] });
-    this.setState({
-      doings: [...this.state.doings.filter((doing) => doing.id !== id)],
-    });
+    const tod = [...this.state.todos]
+    tod.push(laterdoing);
+    // console.log(tod);
+    
+    const  doi = [...this.state.doings.filter((doing) => doing._id !== id)]
+    var C = {
+      ...this.state.cur_user,
+      todo : tod
+    }
+    this.setState({todos : C.todo}) 
+    axios.post('http://localhost:5000/user/addtodo',{C}).then(res => {
+      this.setState({cur_user : C});
+      // this.setState({todos : C.todo}) 
+    })
+    C = {
+      ...this.state.cur_user,
+      doing : doi
+    }
+    axios.post('http://localhost:5000/user/adddoing',{C}).then(res => {
+      this.setState({cur_user : C});
+      this.setState({doings : C.doing}) 
+    })
+
   };
 
   laterdone = (id) => {
-    const x = this.state.dones.filter((done) => done.id === id);
-
-    const latertodo = {
-      id: x[0].id,
+    const x = this.state.dones.filter((doing) => doing._id === id);
+    const laterdoing = {
+      _id : x[0]._id,
       task: x[0].task,
       description: x[0].description,
     };
-    this.setState({ todos: [...this.state.todos, latertodo] });
-    this.setState({
-      dones: [...this.state.dones.filter((done) => done.id !== id)],
-    });
+    const tod = [...this.state.todos]
+    tod.push(laterdoing);
+    // console.log(tod);
+    
+    const  doi = [...this.state.dones.filter((doing) => doing._id !== id)]
+    var C = {
+      ...this.state.cur_user,
+      todo : tod
+    }
+    this.setState({todos : C.todo}) 
+    axios.post('http://localhost:5000/user/addtodo',{C}).then(res => {
+      this.setState({cur_user : C});
+      // this.setState({todos : C.todo}) 
+    })
+    
+    C = {
+      ...this.state.cur_user,
+      done : doi
+    }
+    axios.post('http://localhost:5000/user/adddone',{C}).then(res => {
+      this.setState({cur_user : C});
+      this.setState({dones : C.done}) 
+    })
+
   };
 
-  letsdo = (id) => {
-    const x = this.state.todos.filter((todo) => todo.id === id);
-
-    const letsdo = {
-      id: x[0].id,
+  letsdo = (id) =>{
+    const x = this.state.todos.filter((doing) => doing._id === id);
+    const laterdoing = {
+      _id : x[0]._id,
       task: x[0].task,
       description: x[0].description,
     };
-    this.setState({ doings: [...this.state.doings, letsdo] });
-    this.setState({
-      todos: [...this.state.todos.filter((todo) => todo.id !== id)],
-    });
-  };
+    const tod = [...this.state.doings]
+    tod.push(laterdoing);
+    // console.log(tod);
+    
+    const  doi = [...this.state.todos.filter((doing) => doing._id !== id)]
+    var C = {
+      ...this.state.cur_user,
+      todo : doi
+    }
+    this.setState({todos : C.todo}) 
+    axios.post('http://localhost:5000/user/addtodo',{C}).then(res => {
+      this.setState({cur_user : C});
+      // this.setState({todos : C.todo}) 
+    })
+    
+    C = {
+      ...this.state.cur_user,
+      doing : tod
+    }
+    axios.post('http://localhost:5000/user/adddoing',{C}).then(res => {
+      this.setState({cur_user : C});
+      this.setState({doings : C.doing}) 
+    })
+  }
 
   donetodo = (id) => {
-    const x = this.state.doings.filter((doing) => doing.id === id);
-
-    const done = {
-      id: x[0].id,
+    const x = this.state.doings.filter((doing) => doing._id === id);
+    const laterdoing = {
+      _id : x[0]._id,
       task: x[0].task,
       description: x[0].description,
     };
-    this.setState({ dones: [...this.state.dones, done] });
-    this.setState({
-      doings: [...this.state.doings.filter((doing) => doing.id !== id)],
-    });
+    const tod = [...this.state.dones]
+    tod.push(laterdoing);
+    // console.log(tod);
+    
+    const  doi = [...this.state.doings.filter((doing) => doing._id !== id)]
+    var C = {
+      ...this.state.cur_user,
+      done : tod
+    }
+    // console.log(C);
+    this.setState({dones : C.done}) 
+    axios.post('http://localhost:5000/user/adddone',{C}).then(res => {
+      this.setState({cur_user : C});
+      // this.setState({todos : C.todo}) 
+    })
+    
+    C = {
+      ...this.state.cur_user,
+      doing : doi
+    }
+    axios.post('http://localhost:5000/user/adddoing',{C}).then(res => {
+      this.setState({cur_user : C});
+      this.setState({doings : C.doing}) 
+    })
   };
 
   render() {
@@ -167,8 +287,11 @@ class ToDoMain extends Component {
   }
 }
 
-// const style = {
-//   width: '30%',
-// };
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth,
+    users:state.user,
+  };
+};
 
-export default ToDoMain;
+export default connect(mapStateToProps)(ToDoMain);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 class DoneItem extends Component {
   render() {
-    const { id, task, description } = this.props.done;
+    const { _id, task, description } = this.props.done;
     // console.log(description);
     return (
       <div style={style}>
@@ -12,7 +12,7 @@ class DoneItem extends Component {
             <div className=' d-flex justify-content-around container'>
               <button
                 className='btn btn-primary btn-md rounded-0'
-                onClick={this.props.laterdone.bind(this, id)}
+                onClick={this.props.laterdone.bind(this, _id)}
               >
                 Later{' '}
                 <span role='img' aria-label='todo'>
@@ -21,7 +21,7 @@ class DoneItem extends Component {
               </button>
               <button
                 className='btn btn-success btn-md rounded-0'
-                onClick={this.props.deldone.bind(this, id)}
+                onClick={this.props.deldone.bind(this, _id)}
               >
                 Remove!{' '}
                 <span role='img' aria-label='todo'>

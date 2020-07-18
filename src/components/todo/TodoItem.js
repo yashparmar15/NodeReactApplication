@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class TodoItem extends Component {
   render() {
-    const { id, task, description } = this.props.todo;
+    const { _id, task, description } = this.props.todo;
 
     return (
       <div style={style}>
@@ -13,7 +13,7 @@ class TodoItem extends Component {
             <div className='d-flex justify-content-around container'>
               <button
                 className='btn btn-danger btn-md rounded-0'
-                onClick={this.props.delTodo.bind(this, id)}
+                onClick={this.props.delTodo.bind(this, _id)}
               >
                 Remove{' '}
                 <span role='img' aria-label='todo'>
@@ -22,7 +22,7 @@ class TodoItem extends Component {
               </button>
               <button
                 className='btn btn-warning btn-md rounded-0'
-                onClick={this.props.letsdo.bind(this, id)}
+                onClick={this.props.letsdo.bind(this, _id)}
               >
                 Let's Do!{' '}
                 <span role='img' aria-label='todo'>

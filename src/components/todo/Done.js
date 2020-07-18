@@ -33,7 +33,7 @@ class Done extends React.Component {
           {this.props.dones.map((done) => {
             return (
               <DoneItem
-                key={done.id}
+                key={done._id}
                 done={done}
                 laterdone={this.props.laterdone}
                 deldone={this.props.deldone}
