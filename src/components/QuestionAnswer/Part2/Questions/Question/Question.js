@@ -12,6 +12,8 @@ import Answers from './Answers';
 class Question extends Component {
   state = {
     open: false,
+    upvotes: this.props.upvotes.length,
+    downvotes: this.props.downvotes.length,
   };
 
   onOpenModal = () => {
@@ -75,12 +77,11 @@ class Question extends Component {
           </div>
           <div className='sub'>
             <p>
-              {' '}
               <div className='vote-count text-danger'>
-                +{this.props.upvotes.length}
+                +{this.state.upvotes}{' '}
               </div>
               <div className='vote-count text-primary'>
-                -{this.props.downvotes.length}{' '}
+                -{this.state.downvotes}{' '}
               </div>
             </p>
             votes

@@ -62,10 +62,10 @@ router.get('/api/current_user', (req, res) => {
   res.send(req.user);
 });
 
-router.get('/api/logout', (req, res) => {
-  req.logout();
-  res.redirect(`/`);
-});
+// router.get('/api/logout', (req, res) => {
+//   req.logout();
+//   res.redirect(`/`);
+// });
 
 router.post('/api/questions', async (req, res, next) => {
   const content = await req.body.content;
@@ -143,6 +143,11 @@ router.post('/api/questions/:id', async (req, res, next) => {
   //
 });
 
+router.get('/api/allusers', async (req, res) => {
+  let allusers = await User.find({});
+  res.send(allusers);
+});
+
 router.get('/api/questions', async (req, res) => {
   await Question.find()
     .populate('askedBy')
@@ -208,8 +213,8 @@ router.post('/api/filter', async (req, res, next) => {
 //   });
 // });
 
-router.get('/api/logout', async (req, res) => {
-  await req.logout();
+router.get('/api/logout', (req, res) => {
+  req.logout();
   req.session = null;
   res.clearCookie('college', { path: '/', httpOnly: true });
   res.clearCookie('college.sig', { path: '/', httpOnly: true });
