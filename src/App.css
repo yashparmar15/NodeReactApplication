@@ -1,0 +1,8 @@
+.main-loader-div {
+  width: 100vw;
+  height: 100vh;
+  background-color: #34495e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

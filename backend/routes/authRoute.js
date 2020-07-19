@@ -1,6 +1,5 @@
 const passport = require('passport');
 const express = require('express');
-const mongoose = require('mongoose');
 const User = require('../models/User');
 const router = express.Router();
 const Question = require('../models/Questions');
@@ -148,11 +147,49 @@ router.get('/api/questions', async (req, res) => {
     .catch((err) => console.log(err));
 });
 
+//   await Question.findById(
+
+//     // {
+
+//     //   $push: { upvotes: req.user._id },
+//     //   $pull: { downvotes: req.user._id },
+//     // },
+//     // {
+//     //   new: true,
+//     // }
+//   ).exec((err, result) => {
+//     if (err) {
+//       return res.status(422).json({ error: err });
+//     } else {
+//       res.json(result);
+//     }
+//   });
+// });
+// router.put('/api/question/downvote', async (req, res) => {
+//   console.log('downvote', req.body);
+//   await Question.findByIdAndUpdate(
+//     req.body.questionId,
+//     {
+//       $pull: { upvotes: req.user._id },
+//       $push: { downvotes: req.user._id },
+//     },
+//     {
+//       new: true,
+//     }
+//   ).exec((err, result) => {
+//     if (err) {
+//       return res.status(422).json({ error: err });
+//     } else {
+//       res.json(result);
+//     }
+//   });
+// });
+
 router.get('/api/logout', async (req, res) => {
   await req.logout();
   req.session = null;
-  res.clearCookie('ayan', { path: '/', httpOnly: true });
-  res.clearCookie('ayan.sig', { path: '/', httpOnly: true });
+  res.clearCookie('college', { path: '/', httpOnly: true });
+  res.clearCookie('college.sig', { path: '/', httpOnly: true });
   // res.clearCookie('session', { path: '/', httpOnly: true });
   // res.clearCookie('session.sig', { path: '/', httpOnly: true });
   res.redirect('/');

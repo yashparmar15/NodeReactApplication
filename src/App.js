@@ -7,15 +7,24 @@ import AppBuilder from './containers/AppBuilder/AppBuilder';
 import Project from './containers/Project/Project';
 import Profile from './containers/Profile/Profile';
 import ToDoMain from './containers/ToDoMain/ToDoMain';
-import { fetchUserAction, fetchUsersAction } from './fullredux/actions/myActions';
+import {
+  fetchUserAction,
+  fetchUsersAction,
+} from './fullredux/actions/myActions';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import UserInfoForm from './components/UserInfoForm/UserInfoForm';
+import loader from './assets/loaders/svg-loaders/tail-spin.svg';
+// import loader from './assets/images/bg.jpg';
 function App(props) {
   useEffect(() => {
     props.fetch_user();
   }, []);
   if (props.user.loading) {
-    return <div className=''>Loading</div>;
+    return (
+      <div className='main-loader-div'>
+        <img src={loader} alt='image1' className='main-loader' />
+      </div>
+    );
   }
 
   return (

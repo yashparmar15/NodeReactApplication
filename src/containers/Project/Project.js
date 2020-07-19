@@ -6,6 +6,13 @@ function Projects() {
   return (
     <>
       <div className='project-bg'>
+        <div className=''>
+          <div className='p-3'>
+            <button className='btn btn-primary position-fixed'>
+              Add Project
+            </button>
+          </div>
+        </div>
         <div className='project-header-bg'>
           <h1 className='text-center'>PROJECTS</h1>
         </div>
@@ -17,11 +24,13 @@ function Projects() {
               <div key={Math.random()} className='col-lg-6 mb-3 '>
                 <div className='card mx-auto'>
                   <div className='card-body'>
-                    <h4 className='card-title text-center'>Project Title</h4>
-                    <h6 className='card-subtitle mb-2 text-muted text-right'>
+                    <h4 className='card-title text-center text-white'>
+                      Project Title
+                    </h4>
+                    <h6 className='card-subtitle mb-2 text-right text-white'>
                       ~ Ayan Adhya
                     </h6>
-                    <div className='card-text'>
+                    <div className='card-text pr-3 mt-3'>
                       <div className=''>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Voluptatem eligendi delectus minima laudantium, labore
@@ -37,7 +46,7 @@ function Projects() {
                         pariatur atque numquam similique ut? lorem90
                       </div>
                     </div>
-                    <h5 className='my-2'>Tags</h5>
+                    <h5 className='my-3 text-white'>Tags</h5>
                     <div className='tags-wrapper mt-2'>
                       {[
                         1,
