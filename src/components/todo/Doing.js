@@ -33,7 +33,7 @@ class Doing extends React.Component {
           {this.props.doings.map((doing) => {
             return (
               <DoingItem
-                key={doing.id}
+                key={doing._id}
                 doing={doing}
                 laterdoing={this.props.laterdoing}
                 donetodo={this.props.donetodo}

@@ -35,7 +35,7 @@ class Todo extends React.Component {
           {this.props.todos.map((todo) => {
             return (
               <TodoItem
-                key={todo.id}
+                key={todo._id}
                 todo={todo}
                 delTodo={this.props.delTodo}
                 letsdo={this.props.letsdo}

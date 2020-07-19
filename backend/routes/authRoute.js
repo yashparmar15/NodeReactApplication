@@ -72,10 +72,16 @@ router.post('/api/questions', async (req, res, next) => {
   const question = await req.body.question;
   const tags = await req.body.allTags;
   const askedBy = await req.user;
+  const filtertags = await req.body.filtertags;
+
   // console.log(req.body);
-  // console.log('Question:', question);
-  // console.log('DraftJS:', content);
-  // console.log('Tags:', tags);
+  // console.log("Question:", question);
+  // console.log("DraftJS:", content);
+  // console.log("Tags:", tags);
+  // if (question === "" && filtertags.length !== 0) {
+  // 	console.log(filtertags.length);
+  // 	console.log("filterwala h ");
+  // }
   if (question) {
     new Question({
       title: question,
@@ -138,6 +144,23 @@ router.post('/api/questions/:id', async (req, res, next) => {
 });
 
 router.get('/api/questions', async (req, res) => {
+  await Question.find()
+    .populate('askedBy')
+    .then((questions) => {
+      // console.log(questions)
+      res.send(questions);
+    })
+    .catch((err) => console.log(err));
+});
+
+router.post('/api/filter', async (req, res, next) => {
+  const tags = await req.body.allTags;
+  console.log(req.body);
+  console.log('Tags:', tags);
+  console.log(req.body);
+
+  // console.log(req.body);
+  console.log(4);
   await Question.find()
     .populate('askedBy')
     .then((questions) => {
