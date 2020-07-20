@@ -1,4 +1,12 @@
 .modal-dialog-add {
   max-width: 100vw !important;
   margin-top: 0px;
+  color: white;
+}
+.modal-add-project-content {
+  background-color: #489fb5 !important;
+}
+
+.react-select-project-add {
+  color: black !important;
 }
