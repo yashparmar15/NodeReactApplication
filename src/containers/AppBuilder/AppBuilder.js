@@ -6,6 +6,7 @@ import { fetchQuestions } from '../../fullredux/actions/QuestionsAction';
 function AppBuilder(props) {
   useEffect(() => {
     props.fetchQ();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <QuestionAnswer />;

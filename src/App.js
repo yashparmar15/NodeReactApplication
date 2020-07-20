@@ -18,6 +18,7 @@ import loader from './assets/loaders/svg-loaders/tail-spin.svg';
 function App(props) {
   useEffect(() => {
     props.fetch_user();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if (props.user.loading) {
     return (
@@ -60,7 +61,7 @@ function App(props) {
     </>
   );
 }
-var id;
+
 const mapDispatchToProps = (dispatch) => {
   return {
     fetch_user: () => {

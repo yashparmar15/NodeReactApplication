@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Todo from '../../components/todo/Todo';
 import Doing from '../../components/todo/Doing';
 import Done from '../../components/todo/Done';
-import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
 import { connect } from 'react-redux';
@@ -19,6 +18,7 @@ class ToDoMain extends Component {
 
   componentDidMount = () => {
     var Cur;
+
     this.props.users.usersData.map((U) => {
       if (U.id === this.props.user.userData._id) Cur = U;
     });

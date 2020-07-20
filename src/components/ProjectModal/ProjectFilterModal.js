@@ -1,7 +1,7 @@
 import React from 'react';
 import MultiSelect from '../MultiSelect/MultiSelect';
 
-function ProjectModal() {
+function ProjectFilterModal() {
   return (
     <>
       <div className='project-modal'>
@@ -63,4 +63,4 @@ function ProjectModal() {
   );
 }
 
-export default ProjectModal;
+export default ProjectFilterModal;

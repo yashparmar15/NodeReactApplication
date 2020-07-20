@@ -1,6 +1,7 @@
 import React from 'react';
 
-import ProjectModal from '../../components/ProjectModal/ProjectModal';
+import ProjectFilterModal from '../../components/ProjectModal/ProjectFilterModal';
+import ProjectAddModal from '../../components/ProjectModal/ProjectAddModal';
 import './Project.css';
 function Projects() {
   return (
@@ -8,16 +9,14 @@ function Projects() {
       <div className='project-bg'>
         <div className=''>
           <div className='p-3'>
-            <button className='btn btn-primary position-fixed'>
-              Add Project
-            </button>
+            <ProjectAddModal />
           </div>
         </div>
-        <div className='project-header-bg'>
+        <div className='project-header-bg mt-4'>
           <h1 className='text-center'>PROJECTS</h1>
         </div>
 
-        <ProjectModal />
+        <ProjectFilterModal />
         <div className='container'>
           <div className='row'>
             {[1, 2, 3, 4, 5].map(() => (
