@@ -49,7 +49,7 @@ class UserInfoForm extends Component {
         var A;
         console.log("Connected")
         axios.get('http://localhost:5000/user/getall').then((response)=>{
-            console.log(response.data)
+            // console.log(response.data)
             A = response.data;
             A.map(a => {
                 if(a.id === this.props.userI.userData._id){
