@@ -14,11 +14,15 @@ const QuestionSchema = new Schema({
     type: Number,
   },
   upvotes: {
-    type: Number,
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'User',
   },
+
   downvotes: {
-    type: Number,
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'User',
   },
+
   date: {
     type: Date,
     default: Date.now(),

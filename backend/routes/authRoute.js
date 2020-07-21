@@ -1,9 +1,9 @@
 const passport = require('passport');
 const express = require('express');
-const mongoose = require('mongoose');
 const User = require('../models/User');
 const router = express.Router();
 const Question = require('../models/Questions');
+const { combineReducers } = require('redux');
 
 router.get(
   '/auth/google',
@@ -63,21 +63,34 @@ router.get('/api/current_user', (req, res) => {
   res.send(req.user);
 });
 
-router.get('/api/logout', (req, res) => {
-  req.logout();
-  res.redirect(`/`);
-});
-
 router.post('/api/questions', async (req, res, next) => {
   const content = await req.body.content;
   const question = await req.body.question;
   const tags = await req.body.allTags;
   const askedBy = await req.user;
+  const filtertags = await req.body.filtertags;
+
+  console.log(req.user);
+
   // console.log(req.body);
-  // console.log('Question:', question);
-  // console.log('DraftJS:', content);
-  // console.log('Tags:', tags);
+  // console.log("Question:", question);
+  // console.log("DraftJS:", content);
+  // console.log("Tags:", tags);
+  // if (question === "" && filtertags.length !== 0) {
+  // 	console.log(filtertags.length);
+  // 	console.log("filterwala h ");
+  // }
   if (question) {
+    User.findByIdAndUpdate(
+      { _id: askedBy._id },
+      { $inc: { totalquestions: 1 } },
+      (err, res) => {
+        if (err) {
+          return res.status(500);
+        }
+      }
+    );
+
     new Question({
       title: question,
       description: content,
@@ -87,8 +100,12 @@ router.post('/api/questions', async (req, res, next) => {
       .save()
       .then(() => {
         console.log('Saved!');
+        return res.status(200);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        return res.status(500);
+      });
   }
 
   res.redirect('/questions');
@@ -97,13 +114,21 @@ router.post('/api/questions', async (req, res, next) => {
 
 router.post('/api/questions/:id', async (req, res, next) => {
   const answer = await req.body.answer;
-  console.log(answer);
+  // console.log(answer);
   const id = req.params.id;
-  // console.log('Answer:', answer);
-  // console.log(id);
-  // console.log(req.user.username);
+  const answeredby = await req.user;
 
   if (answer) {
+    User.findByIdAndUpdate(
+      { _id: answeredby._id },
+      { $inc: { totalanswers: 1 } },
+      (err, res) => {
+        if (err) {
+          return res.status(500);
+        }
+      }
+    );
+
     const currAns = {
       answer: answer,
       askedBy: req.user._id,
@@ -138,7 +163,47 @@ router.post('/api/questions/:id', async (req, res, next) => {
   //
 });
 
+router.get('/api/allusers', async (req, res) => {
+  // console.log(4);
+  let allusers = await User.find({});
+  return res.status(200).send(allusers);
+});
+
+router.get('/api/getTopUsersQ', async (req, res) => {
+  // console.log(4);
+  const topUsersQ = await User.find({}).sort({ totalquestions: -1 });
+  // console.log(topUsersQ);
+  res.send(topUsersQ);
+});
+
+router.get('/api/getTopUsersA', async (req, res) => {
+  // console.log(4);
+  const topUsersA = await User.find({}).sort({ totalanswers: -1 });
+  console.log(topUsersA);
+  res.send(topUsersA);
+});
+
 router.get('/api/questions', async (req, res) => {
+  await Question.find()
+    .populate('askedBy')
+    .then((questions) => {
+      // console.log(questions)
+      return res.status(200).send(questions);
+    })
+    .catch((err) => {
+      console.log(err);
+      return res.status(500);
+    });
+});
+
+router.post('/api/filter', async (req, res, next) => {
+  const tags = await req.body.allTags;
+  console.log(req.body);
+  console.log('Tags:', tags);
+  console.log(req.body);
+
+  // console.log(req.body);
+  // console.log(4);
   await Question.find()
     .populate('askedBy')
     .then((questions) => {
@@ -148,11 +213,49 @@ router.get('/api/questions', async (req, res) => {
     .catch((err) => console.log(err));
 });
 
-router.get('/api/logout', async (req, res) => {
-  await req.logout();
+//   await Question.findById(
+
+//     // {
+
+//     //   $push: { upvotes: req.user._id },
+//     //   $pull: { downvotes: req.user._id },
+//     // },
+//     // {
+//     //   new: true,
+//     // }
+//   ).exec((err, result) => {
+//     if (err) {
+//       return res.status(422).json({ error: err });
+//     } else {
+//       res.json(result);
+//     }
+//   });
+// });
+// router.put('/api/question/downvote', async (req, res) => {
+//   console.log('downvote', req.body);
+//   await Question.findByIdAndUpdate(
+//     req.body.questionId,
+//     {
+//       $pull: { upvotes: req.user._id },
+//       $push: { downvotes: req.user._id },
+//     },
+//     {
+//       new: true,
+//     }
+//   ).exec((err, result) => {
+//     if (err) {
+//       return res.status(422).json({ error: err });
+//     } else {
+//       res.json(result);
+//     }
+//   });
+// });
+
+router.get('/api/logout', (req, res) => {
+  req.logout();
   req.session = null;
-  res.clearCookie('ayan', { path: '/', httpOnly: true });
-  res.clearCookie('ayan.sig', { path: '/', httpOnly: true });
+  res.clearCookie('college', { path: '/', httpOnly: true });
+  res.clearCookie('college.sig', { path: '/', httpOnly: true });
   // res.clearCookie('session', { path: '/', httpOnly: true });
   // res.clearCookie('session.sig', { path: '/', httpOnly: true });
   res.redirect('/');

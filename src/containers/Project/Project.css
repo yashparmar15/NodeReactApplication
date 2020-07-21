@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
 .project-bg {
   min-height: 100vh !important;
-  background-color: white;
+  background-color: #192330;
   font-family: 'Raleway', sans-serif;
   /* background-image: url('https://images.unsplash.com/photo-1572177812156-58036aae439c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');
   -webkit-background-size: cover;
@@ -14,25 +14,30 @@
   margin: 0 !important;
   padding: 0 !important;
   /* background: rgba(255, 225, 225, 1); */
+  background-color: #24364e;
 }
 
 .project-header-bg {
   /* background-color: #08aeea;
   background-image: linear-gradient(0deg, #08aeea 0%, #2af598 100%); */
-  padding: 14vh 0;
-  background: url('https://images.unsplash.com/photo-1516132117637-8328c0d7a805?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80');
+  padding: 0vh 0;
+  /* background: url('https://images.unsplash.com/photo-1516132117637-8328c0d7a805?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80'); */
   opacity: 0.9;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  width: fit-content;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .project-header-bg h1 {
-  color: white;
+  color: #12d2cd;
   display: inline-flex;
   font-weight: bolder;
-  border: 6px solid white;
+  border-bottom: 6px solid #12d2cd;
   position: relative;
   left: 50% !important;
   transform: translateX(-50%) !important;
@@ -40,19 +45,22 @@
 }
 
 .project-bg .card:hover {
-  -webkit-box-shadow: 0px 0px 18px 10px rgba(167, 208, 235, 0.55);
-  -moz-box-shadow: 0px 0px 18px 10px rgba(167, 208, 235, 0.55);
-  box-shadow: 0px 0px 18px 10px rgba(167, 208, 235, 0.55);
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
   border: none;
 }
 
 .project-bg .card-text {
+  color: white;
   -webkit-line-clamp: 8 !important;
   overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  display: -webkit-box !important;
-  -webkit-box-orient: vertical !important;
+  height: 30vh;
+  /* text-overflow: ellipsis !important; */
+  /* display: -webkit-box !important;
+  -webkit-box-orient: vertical !important; */
   text-align: justify;
+  overflow-y: scroll !important;
 }
 
 .project-bg .tags-wrapper {
@@ -62,8 +70,8 @@
 }
 .project-bg .ayan-tags {
   margin-right: 1rem;
-  color: white;
-  background-color: #989898;
+  color: black;
+  background-color: #12d2cd;
   padding: 0px 13px;
   border-radius: 15px;
   border: 1px solid black;

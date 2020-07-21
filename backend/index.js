@@ -13,10 +13,10 @@ app.use(bodyParser.json());
 app.use('/public', express.static('public'));
 const PORT = process.env.PORT || 5000;
 
-
 const authRoute = require('./routes/authRoute');
 const userRoute = require('./routes/userRoute');
-
+const voteRoute = require('./routes/voteRoute');
+const projectRoute = require('./routes/projectRoute');
 
 require('./services/passport');
 
@@ -43,10 +43,10 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('',authRoute);
-app.use('/user',userRoute);
+app.use('', authRoute);
+app.use('/user', userRoute);
+app.use('/api/question', voteRoute);
+app.use('/api/projects', projectRoute);
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
 });
-
-

@@ -1,0 +1,42 @@
+.vote-btn {
+  font-size: 1.2em;
+  cursor: pointer;
+  width: fit-content;
+  padding: 10px;
+  /* background-color: aqua; */
+}
+
+.vote-btn-color {
+  color: #878a8c;
+}
+
+.vote-like-btn-color {
+  color: red;
+}
+.vote-dislike-btn-color {
+  color: blue;
+}
+
+.like-cover {
+  /* border: 2px solid gray; */
+  width: fit-content;
+  border-radius: 20px;
+  padding: 5px 15px;
+  position: relative;
+  left: -10px;
+}
+.dislike-cover {
+  /* border: 2px solid green; */
+  width: fit-content;
+  border-radius: 20px;
+  padding: 5px 15px;
+  position: relative;
+  left: -10px;
+}
+
+.vote-shadow {
+  -webkit-box-shadow: -1px 20px 43px -16px rgba(0, 0, 0, 1);
+  -moz-box-shadow: -1px 20px 43px -16px rgba(0, 0, 0, 1);
+  box-shadow: -1px 20px 43px -16px rgba(0, 0, 0, 1);
+  border: 1px solid #878a8c;
+}

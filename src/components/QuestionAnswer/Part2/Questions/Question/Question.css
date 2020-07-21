@@ -1,148 +1,153 @@
-.question{
-    width: 64vw;
-    display: flex;
-    flex-direction: row;
-    padding-top: 3vw;
-    border-bottom: 0.001vw solid #6f7d95;
+.question {
+  width: 64vw;
+  display: flex;
+  flex-direction: row;
+  padding-top: 3vw;
+  border-bottom: 0.001vw solid #6f7d95;
 }
 
-.detail{
-    width:42vw;
-    padding-left:2vw;
+.detail {
+  width: 42vw;
+  padding-left: 2vw;
 }
 
-.info{
-    width:18vw;
-    display: flex;
-    flex-direction: row;
-    padding-right: 2vw;
+.info {
+  width: 18vw;
+  display: flex;
+  flex-direction: row;
+  padding-right: 2vw;
 }
 
-.sub{
-    width:4vw;
-    margin-left: 1vw;
-    margin-right: 1vw;
-    text-align: center;
-    color: #6f7d95;
-    font-size: 1vw;
+.sub {
+  width: 4vw;
+  margin-left: 1vw;
+  margin-right: 1vw;
+  text-align: center;
+  color: #6f7d95;
+  font-size: 1vw;
 }
 
 .sub p {
-    width:4vw;
-    height: 4vw;
-    border-radius: 4vw;
-    font-size: 1vw;
+  width: 4vw;
+  height: 4vw;
+  border-radius: 4vw;
+  font-size: 1vw;
+  border: 1px solid #6f7d95;
+  color: #6f7d95;
+  text-align: center;
+  padding: 1vw 0vw;
+  /* background-color: #1abc9c; */
+  background-color: #fff;
+}
+
+.title {
+  font-size: 1.3vw;
+  color: #2c3e50;
+  width: 35vw;
+}
+.description {
+  font-size: 1.1vw;
+  color: #6f7d95;
+  font-weight: normal;
+  width: 35vw;
+}
+
+.tags {
+  width: 30vw;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag-q {
+  border: 1px solid #6f7d95;
+  font-size: 1vw;
+  width: fit-content;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+  border-radius: 1vw;
+  color: #6f7d95;
+  background-color: #eef1f7;
+  margin-right: 1vw;
+  margin-top: 5px;
+  cursor: pointer;
+}
+.tag-q:hover {
+  color: black;
+  border: 1px solid black;
+}
+.detail p {
+  margin-top: 10px;
+  color: #6f7d95;
+  font-size: 1vw;
+}
+.detail p b {
+  color: #15a4fa;
+  cursor: pointer;
+}
+.detail p b:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 900px) {
+  .question {
+    width: 100vw;
+    flex-direction: column;
+  }
+
+  .detail {
+    width: 90vw;
+    padding-left: 5vw;
+  }
+
+  .info {
+    width: 100vw;
+    padding-right: 5vw;
+  }
+
+  .sub {
+    margin: auto;
+    width: 50px;
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .sub p {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    font-size: 12px;
+    padding: 15px 0vw;
+  }
+
+  .title {
+    font-size: 20px;
+    width: 90vw;
+  }
+  .description {
+    font-size: 18px;
+    width: 90vw;
+  }
+
+  .tags {
+    width: 90vw;
+  }
+
+  .tag-q {
     border: 1px solid #6f7d95;
-    color: #6f7d95;
-    text-align: center;
-    padding: 1vw 0vw;
-    /* background-color: #1abc9c; */
-    background-color: #fff;
-}
-
-.title{
-    font-size: 1.3vw;
-    color: #2c3e50;
-    width:35vw;
-}
-.description{
-    font-size: 1.1vw;
-    color: #6f7d95;
-    font-weight: normal;
-    width: 35vw;
-}
-
-.tags{
-    width:30vw;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.tag-q{
-    border : 1px solid #6f7d95;
-    font-size: 1vw;
-    width: fit-content;
-    padding-left: 0.5vw;
-    padding-right: 0.5vw;
-    border-radius: 1vw;
-    color: #6f7d95;
-    background-color: #eef1f7;
-    margin-right: 1vw;
+    font-size: 12px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
+    margin-right: 5px;
     margin-top: 5px;
-    cursor: pointer;
-}
-.tag-q:hover{
-    color: black;
-    border : 1px solid black;
-}
-.detail p{
-    margin-top: 10px;
-    color: #6f7d95;
-    font-size: 1vw;
-}
-.detail p b{
-    color: #15a4fa;
-    cursor: pointer;
-}
-.detail p b:hover{
-    text-decoration: underline;
+  }
+  .detail p {
+    margin-top: 20px;
+    font-size: 15px;
+  }
 }
 
-@media screen and (max-width : 900px){
-    .question{
-        width: 100vw;
-        flex-direction: column;
-    }
-    
-    .detail{
-        width:90vw;
-        padding-left:5vw;
-    }
-    
-    .info{
-        width:100vw;
-        padding-right: 5vw;
-    }
-    
-    .sub{
-        margin: auto;
-        width:50px;
-        font-size: 15px;
-        margin-bottom: 20px;
-    }
-    
-    .sub p {
-        width:50px;
-        height: 50px;
-        border-radius: 50px;
-        font-size: 12px;
-        padding: 15px 0vw;
-    }
-    
-    .title{
-        font-size: 20px;
-        width:90vw;
-    }
-    .description{
-        font-size: 18px;
-        width: 90vw;
-    }
-    
-    .tags{
-        width:90vw;
-    }
-
-    .tag-q{
-        border : 1px solid #6f7d95;
-        font-size: 12px;
-        padding-left: 5px;
-        padding-right: 5px;
-        border-radius: 5px;
-        margin-right: 5px;
-        margin-top: 5px;
-    }
-    .detail p{
-        margin-top: 20px;
-        font-size: 15px;
-    }
+.vote-count {
+  position: relative;
+  top: -7px;
 }

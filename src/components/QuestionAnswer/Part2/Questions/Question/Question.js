@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-
-import './Question.css';
-
+import moment from 'moment';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import 'font-awesome/css/font-awesome.min.css';
 import draftToHtml from 'draftjs-to-html';
+
+import LikeDislike from '../../../../LikeDislike/LikeDislike';
+import './Question.css';
 import Answers from './Answers';
-import moment from 'moment';
 
 class Question extends Component {
   state = {
     open: false,
+    upvotes: this.props.upvotes.length,
+    downvotes: this.props.downvotes.length,
   };
 
   onOpenModal = () => {
@@ -21,6 +23,7 @@ class Question extends Component {
   onCloseModal = () => {
     this.setState({ open: false });
   };
+
   render() {
     return (
       <div className='question'>
@@ -34,7 +37,9 @@ class Question extends Component {
           ></h3>
           <div className='tags'>
             {this.props.allTags.map((tag) => (
-              <div className='tag-q'>{tag}</div>
+              <div className='tag-q' key={Math.random()}>
+                {tag}
+              </div>
             ))}
           </div>
           <p>
@@ -42,25 +47,26 @@ class Question extends Component {
             <br />
             {moment(this.props.date).format('DD/MM/YYYY')}
           </p>
-          <p>
-            {/* <b>
-							View all <i className="fa fa-arrow-right"></i>
-						</b> */}
-            <button
-              onClick={this.onOpenModal}
-              className='btn btn-outline-info rounded-0'
-            >
-              {' '}
-              Enter your Answer/View all Answers!{' '}
-              <i className='fa fa-arrow-right'></i>
-            </button>
-            <Answers
-              flag={this.state.open}
-              close={this.onCloseModal}
-              answers={this.props.answers}
-              id={this.props.id}
-            />
-          </p>
+          <LikeDislike
+            upvote={this.props.upvotes}
+            downvote={this.props.downvotes}
+            questionId={this.props.id}
+          />
+
+          <button
+            onClick={this.onOpenModal}
+            className='btn btn-outline-info rounded-0 mb-3'
+          >
+            {' '}
+            Enter your Answer/View all Answers!{' '}
+            <i className='fa fa-arrow-right'></i>
+          </button>
+          <Answers
+            flag={this.state.open}
+            close={this.onCloseModal}
+            answers={this.props.answers}
+            id={this.props.id}
+          />
         </div>
         <div className='info'>
           <div className='sub'>
@@ -70,7 +76,15 @@ class Question extends Component {
             <p>{this.props.totalanswers}</p>answers
           </div>
           <div className='sub'>
-            <p>1</p>votes
+            <p>
+              <div className='vote-count text-danger'>
+                +{this.state.upvotes}{' '}
+              </div>
+              <div className='vote-count text-primary'>
+                -{this.state.downvotes}{' '}
+              </div>
+            </p>
+            votes
           </div>
         </div>
       </div>

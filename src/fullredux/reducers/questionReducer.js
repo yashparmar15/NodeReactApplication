@@ -1,5 +1,6 @@
 const initialState = {
   questions: [],
+  questionLoading: true,
 };
 
 export const questionReducer = (state = initialState, action) => {
@@ -10,6 +11,7 @@ export const questionReducer = (state = initialState, action) => {
       return {
         ...state,
         questions: action.payload,
+        questionLoading: false,
       };
 
     default:
