@@ -77,8 +77,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetch_user: () => {
       dispatch(fetchUserAction());
-      dispatch(fetchUsersAction());
-      dispatch(fetchAllUserAction());
     },
   };
 };

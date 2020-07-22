@@ -26,10 +26,17 @@ class UpdateForm extends Component{
         super(props);
     }
     componentDidMount(){
-        this.props.users.usersData.map(U =>{
-            if(U.id === this.props.user.userData._id)
-                this.setState({cur_user : U});
-        })
+        axios.get("http://localhost:5000/user/getuserinfo",{
+            params : {
+                id : window.location.pathname.substr(9,24)
+            }
+            }).then((res) => {
+                if(res.data){
+                    this.setState({cur_user : res.data});
+                } else {
+                window.location = '/404'
+                }
+		});
     }
 
     changename = (e) => {
