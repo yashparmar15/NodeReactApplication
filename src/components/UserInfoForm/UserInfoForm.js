@@ -49,7 +49,7 @@ class UserInfoForm extends Component {
         var A;
         console.log("Connected")
         axios.get('http://localhost:5000/user/getall').then((response)=>{
-            console.log(response.data)
+            // console.log(response.data)
             A = response.data;
             A.map(a => {
                 if(a.id === this.props.userI.userData._id){
@@ -77,20 +77,6 @@ class UserInfoForm extends Component {
                  }
                  break;
             }
-
-            case 'email': {
-                if(typeof e.target.value !== "undefined"){
-                    if(!e.target.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)){
-                       this.setState({emailClass : "red-error"})
-                       this.setState({emailError : true})
-                    } else {
-                        this.setState({emailClass : "green-error"})
-                        this.setState({emailError : false})
-                    }   
-                }   
-                break;
-            }
-            
             case 'phone' : {
                 if(typeof e.target.value !== "undefined"){
                     if(!e.target.value.match(/^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/)){
@@ -132,9 +118,9 @@ class UserInfoForm extends Component {
 
             case 'college' :{
                 if(e.target.value !== "")
-                    this.setState({collegeError : true});
+                    this.setState({collegeError : false});
                 else
-                    this.setState({college : false}); 
+                    this.setState({college : true}); 
 
                 break;
             }
@@ -160,14 +146,14 @@ class UserInfoForm extends Component {
             id : this.props.userI.userData._id,
             name : e.target[0].value,
             gender : e.target[1].value,
-            email : e.target[2].value,
-            phone : e.target[3].value,
-            college : e.target[4].value,
-            year : e.target[5].value,
-            branch : e.target[6].value,
-            linkedin : e.target[7].value,
-            github : e.target[8].value,
-            exp : e.target[9].value,
+            email : this.props.userI.userData.email,
+            phone : e.target[2].value,
+            college : e.target[3].value,
+            year : e.target[4].value,
+            branch : e.target[5].value,
+            linkedin : e.target[6].value,
+            github : e.target[7].value,
+            exp : e.target[8].value,
             about : "Nothing There",
         }
         if(e.target[3].value === "")
@@ -177,8 +163,8 @@ class UserInfoForm extends Component {
         if(e.target[8].value === "")
             dataUser.github = "NaN";
         this.setState({user : dataUser});
-        
-        if(!this.state.nameError && !this.state.emailError && this.state.buttonClicked){
+        console.log(this.state)
+        if(!this.state.nameError  && this.state.buttonClicked && !this.state.expError && !this.state.githubError && !this.state.collegeError && !this.state.linkedinError && !this.state.phoneError){
             axios.post('http://localhost:5000/user',{dataUser}).then(res => {
                 window.location = '/';
             })
@@ -191,12 +177,6 @@ class UserInfoForm extends Component {
         if(this.state.nameError){
             NE = (
                 <p style = {{color : 'red' , fontSize : '10px'}}>Please Enter Your Full Name<br/>Name doesn't contain Numbers</p>
-            )
-        }
-        var EmailE = null;
-        if(this.state.emailError){
-            EmailE = (
-                <p style = {{color : 'red' , fontSize : '10px'}}>Please Enter Valid Email Address</p>
             )
         }
         var PhoneE = null;
@@ -253,10 +233,8 @@ class UserInfoForm extends Component {
                         
                     </div>
 
-                    <div className="section"><span>2</span>Email &amp; Phone</div>
+                    <div className="section"><span>2</span>Phone</div>
                     <div className="inner-wrap">
-                        <label>Email Address<span>*</span> <input className = {this.state.emailClass} type="email" name="email" required onChange = {this.nameChange.bind(this)}/></label>
-                        {EmailE}
                         <label>Phone Number <input className = {this.state.phoneClass} type="text" name="phone" onChange = {this.nameChange.bind(this)}/></label>
                         {PhoneE}
                     </div>

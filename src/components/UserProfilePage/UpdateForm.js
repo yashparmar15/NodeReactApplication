@@ -164,12 +164,6 @@ class UpdateForm extends Component{
                 <p style = {{color : 'red' , fontSize : '10px' , marginTop : '5px'}}>Please Enter Your Full Name<br/>Name doesn't contain Numbers</p>
             )
         }
-        var EmailE = null;
-        if(this.state.emailError){
-            EmailE = (
-                <p style = {{color : 'red' , fontSize : '10px' , marginTop : '5px'}}>Please Enter Valid Email Address</p>
-            )
-        }
         var PhoneE = null;
         if(this.state.phoneError){
             PhoneE = (
@@ -220,13 +214,6 @@ class UpdateForm extends Component{
                         {NE}
                     </div>
                     
-                </div>
-                <div className="form-group row">
-                    <label className="col-lg-3 col-form-label form-control-label">Email Id</label>
-                    <div className="col-lg-9">
-                        <input className={this.state.emailClass} type="email" name = "email" defaultValue = {this.state.cur_user.email} onChange = {this.changename.bind(this)} required/>
-                        {EmailE}
-                    </div>
                 </div>
                 <div className="form-group row">
                     <label className="col-lg-3 col-form-label form-control-label">Phone Number</label>
