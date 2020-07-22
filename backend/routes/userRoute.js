@@ -75,6 +75,12 @@ router.get('/getuserpicture', (req, res, next) => {
     })
 });
 
+router.get('/getuserdata', (req, res, next) => {
+  Student.findOne({'id' :req.query.id},(err,result)=>{
+    if(err) console.log(err);
+    else{ res.send(result)};
+  })
+});
 
 
 router.get('/getallusers', (req, res, next) => {

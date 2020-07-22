@@ -19,13 +19,27 @@ class ToDoMain extends Component {
   componentDidMount = () => {
     var Cur;
 
-    this.props.users.usersData.map((U) => {
-      if (U.id === this.props.user.userData._id) Cur = U;
+    const path = window.location.pathname;
+    const proid = path.substr(14,24);
+    if(proid.length !== 24)
+      window.location = '/404'
+    if(proid === this.props.user.userData._id){
+    axios.get("http://localhost:5000/user/getuserdata",{
+      params : {
+        id : proid
+      }
+    }).then((res) => {
+        if(res.data){
+          this.setState({ cur_user: res.data });
+          this.setState({ todos: res.data.todo });
+          this.setState({ doings: res.data.doing });
+          this.setState({ dones: res.data.done });
+        } else {
+          window.location = '/404'
+        }
     });
-    this.setState({ cur_user: Cur });
-    this.setState({ todos: Cur.todo });
-    this.setState({ doings: Cur.doing });
-    this.setState({ dones: Cur.done });
+  }
+
   };
 
   delTodo = (id) => {
@@ -283,7 +297,6 @@ class ToDoMain extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.auth,
-    users: state.user,
   };
 };
 
