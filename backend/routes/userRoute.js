@@ -62,7 +62,7 @@ router.get('/getall', (req, res, next) => {
 
 router.get('/getuserinfo', (req, res, next) => {
   // console.log(req.query)
-    Student.findOne({'id' :req.query.id},(err,result)=>{
+    Student.findOne({'id' :req.query.id},['name' , 'email' , 'followers' , 'following' , 'views_on_profile' , 'skills' , 'phone' , 'likes' , 'joindate' , 'college' , 'year' , 'branch' , 'exp' , 'about'],(err,result)=>{
       if(err) console.log(err);
       else{ res.send(result)};
     })

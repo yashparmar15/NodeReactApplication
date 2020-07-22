@@ -63,6 +63,8 @@ class UserSkills extends Component{
             return <span className="badge badge-primary skill-badge" key={skill} onClick = {this.removeskill.bind(this,skill)} value = {skill}>{skill}</span>
         })
         var skillsP = "No Skills Please add";
+        if(!this.state.check)
+            skillsP = "User has no skills yet"
         if(this.state.skills.length)
         skillsP = this.state.skills.map(skill =>{
             return <span className="badge badge-primary skill-badge" key={skill}  value = {skill}>{skill}</span>

@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 
 import axios from 'axios';
 
+import loader from '../../assets/images/download.png';
+
 class UserImage extends Component{
     state = {
         picture : '',
@@ -64,7 +66,11 @@ class UserImage extends Component{
                     src={this.state.picture}
                     className='mx-auto img-fluid img-circle d-block profile-pic-yash'
                     alt='avatar'
-                    /> : <p>Some error occured please refresh the page</p>}
+                    /> : <img
+                    src={loader}
+                    className='mx-auto img-fluid img-circle d-block profile-pic-yash'
+                    alt='avatar'
+                    />}
                     
                     
                     {show}

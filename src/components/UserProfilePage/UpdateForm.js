@@ -154,8 +154,8 @@ class UpdateForm extends Component{
         
         if(!this.state.nameError && !this.state.emailError && !this.state.expError && !this.state.phoneError && !this.state.emailError && !this.state.linkedinError && !this.state.githubError){
             axios.post('http://localhost:5000/user/updateuser',{Current}).then(res => {
-                window.location = `/profile/${this.state.cur_user.id}`
-                
+
+                window.location = `/profile/${res.data.id}`
                 this.setState({alerttext : "Successfully Updated"});
                 this.setState({alertclass : "alert alert-success"});
             })
