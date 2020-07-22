@@ -75,6 +75,17 @@ class Question extends Component {
           <div className='sub'>
             <p>{this.props.totalanswers}</p>answers
           </div>
+          <div className='sub'>
+            <p>
+              <div className='vote-count text-danger'>
+                +{this.state.upvotes}{' '}
+              </div>
+              <div className='vote-count text-primary'>
+                -{this.state.downvotes}{' '}
+              </div>
+            </p>
+            votes
+          </div>
         </div>
       </div>
     );
