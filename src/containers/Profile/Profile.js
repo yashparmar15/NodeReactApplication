@@ -14,7 +14,7 @@ const Profile = (props) => {
       return <UserProfilePage />;
     } else {
       console.log('not authenticated');
-      return props.history.push('/');
+      return <UserProfilePage />;
     }
   };
   return <div className=''>{renderContent()}</div>;

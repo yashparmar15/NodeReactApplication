@@ -54,6 +54,32 @@ router.post('/user-profile', upload.single('picture'), (req, res, next) => {
 router.get('/getall', (req, res, next) => {
   Student.find({}, (err, result) => {
     if (err) console.log(err);
+    else {res.json(result)};
+  });
+});
+
+
+
+router.get('/getuserinfo', (req, res, next) => {
+  // console.log(req.query)
+    Student.findOne({'id' :req.query.id},(err,result)=>{
+      if(err) console.log(err);
+      else{ res.send(result)};
+    })
+});
+
+router.get('/getuserpicture', (req, res, next) => {
+    User.findOne({'_id' :req.query.id},'picture',(err,result)=>{
+      if(err) console.log(err);
+      else{ res.send(result)};
+    })
+});
+
+
+
+router.get('/getallusers', (req, res, next) => {
+  User.find({}, (err, result) => {
+    if (err) console.log(err);
     else res.json(result);
   });
 });

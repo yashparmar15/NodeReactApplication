@@ -35,7 +35,8 @@ router.get(
         }
       );
       res.redirect(`/info`);
-    } else res.redirect('/');
+    } 
+    else res.redirect('/');
   }
 );
 router.get(

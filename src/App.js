@@ -10,6 +10,7 @@ import ToDoMain from './containers/ToDoMain/ToDoMain';
 import {
   fetchUserAction,
   fetchUsersAction,
+  fetchAllUserAction,
 } from './fullredux/actions/myActions';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import UserInfoForm from './components/UserInfoForm/UserInfoForm';
@@ -27,7 +28,6 @@ function App(props) {
       </div>
     );
   }
-
   return (
     <>
       <Router>
@@ -37,6 +37,7 @@ function App(props) {
           <Route exact path='/questions' component={AppBuilder} />
           <Route exact path='/projects' component={Projects} />
           <Route exact path='/info' component={UserInfoForm} />
+          
           {props.user.isAuthenticated ? (
             <div className=''>
               <Switch>
@@ -50,10 +51,20 @@ function App(props) {
                   path={`/profile/todo/${props.user.userData._id}`}
                   component={ToDoMain}
                 />
+                <Route
+                    exact
+                    path={`/profile/:user_id`}
+                    component={Profile}
+                />
                 <Route component={PageNotFound} />
               </Switch>
             </div>
           ) : null}
+          <Route
+              exact
+              path={`/profile/:user_id`}
+              component={Profile}
+          />
 
           <Route component={PageNotFound} />
         </Switch>
@@ -67,6 +78,7 @@ const mapDispatchToProps = (dispatch) => {
     fetch_user: () => {
       dispatch(fetchUserAction());
       dispatch(fetchUsersAction());
+      dispatch(fetchAllUserAction());
     },
   };
 };
@@ -74,6 +86,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     user: state.auth,
+    users : state.user,
   };
 };
 

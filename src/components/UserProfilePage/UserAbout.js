@@ -7,16 +7,25 @@ import axios from 'axios';
 class UserAbout extends Component{
     state = {
         AboutMe : "",
-        userCur : {}
+        userCur : {},
+        check : this.props.user.userData._id === window.location.pathname.substr(9,24),
+        loading : true,
     }
     componentDidMount(){
-        var Usr;
-        this.props.users.usersData.map(u =>{
-            if(u.id === this.props.user.userData._id)
-                Usr = u;
-        })
-        this.setState({userCur : Usr});
-        this.setState({AboutMe : Usr.about});
+        var Usr = {};
+        axios.get("http://localhost:5000/user/getuserinfo",{
+            params : {
+                id : window.location.pathname.substr(9,24)
+            }
+            }).then((res) => {
+                if(res.data){
+                    this.setState({userCur : res.data});
+                    this.setState({AboutMe : res.data.about});
+                } else {
+                window.location = '/404'
+                }
+		});
+        this.setState({loading : false})
     }
     changeAbout(e){
         this.setState({AboutMe : e.target.value});
@@ -31,13 +40,14 @@ class UserAbout extends Component{
             // console.log(res);
         })
         return;
-    }
+    }   
 
     render(){
         return(
             <>
-                <div className = "about-me-edit"><h6>About</h6><i className="fa fa-edit edit-about"  aria-hidden="true" data-toggle="modal" data-target="#aboutchange"></i></div>
-                <p>{this.state.AboutMe}</p>
+                {this.state.loading ? <p>loading......</p> : <div><div className = "about-me-edit"><h6>About</h6>{this.state.check ? <i className="fa fa-edit edit-about"  aria-hidden="true" data-toggle="modal" data-target="#aboutchange"></i> : null}</div>
+                <p>{this.state.AboutMe}</p></div>}
+                
                 
                 <div className="modal fade" id="aboutchange" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">

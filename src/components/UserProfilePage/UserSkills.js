@@ -7,17 +7,24 @@ import axios from 'axios';
 class UserSkills extends Component{
     state = {
         skills : [],
-        userCur : {}
+        userCur : {},
+        check : this.props.user.userData._id === window.location.pathname.substr(9,24),
     }
     componentDidMount(){
-        var Usr;
-        this.props.users.usersData.map(u =>{
-            if(u.id === this.props.user.userData._id)
-                Usr = u;
-        })
-        this.setState({userCur : Usr});
-        if(Usr.skills.length)
-            this.setState({skills : Usr.skills})
+        var Usr = {};
+        axios.get("http://localhost:5000/user/getuserinfo",{
+            params : {
+                id : window.location.pathname.substr(9,24)
+            }
+            }).then((res) => {
+                if(res.data){
+                    this.setState({userCur : res.data});
+                    this.setState({skills : res.data.skills});
+                } else {
+                window.location = '/404'
+                }
+		});
+        this.setState({loading : false})
     }
 
     addskills = (e) => {
@@ -62,7 +69,7 @@ class UserSkills extends Component{
         })
         return(
             <>
-                <div className = "about-me-edit"><h6>Skills</h6><i className="fa fa-edit edit-about"  aria-hidden="true" data-toggle="modal" data-target="#userskills"></i></div>
+                <div className = "about-me-edit"><h6>Skills</h6>{this.state.check ? <i className="fa fa-edit edit-about"  aria-hidden="true" data-toggle="modal" data-target="#userskills"></i> : null}</div>
                 <p>{skillsP}</p>
                 <div className="modal fade" id="userskills" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
