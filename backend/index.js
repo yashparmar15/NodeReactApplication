@@ -17,6 +17,7 @@ const authRoute = require('./routes/authRoute');
 const userRoute = require('./routes/userRoute');
 const voteRoute = require('./routes/voteRoute');
 const projectRoute = require('./routes/projectRoute');
+const internshipRoute = require('./routes/internshipRoute');
 
 require('./services/passport');
 
@@ -47,6 +48,7 @@ app.use('', authRoute);
 app.use('/user', userRoute);
 app.use('/api/question', voteRoute);
 app.use('/api/projects', projectRoute);
+app.use('/api/internships', internshipRoute);
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
 });
