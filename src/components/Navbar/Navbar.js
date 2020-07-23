@@ -16,8 +16,8 @@ const Navbar = (props) => {
       return (
         <>
           <Link to={`/profile/todo/${props.user.userData._id}`}>Todo</Link>
-          <a href = {`/profile/${userId}`} >Profile</a>
-          
+          <a href={`/profile/${userId}`}>Profile</a>
+
           <button onClick={logout} className='btn btn-primary'>
             Logout
           </button>
@@ -37,6 +37,7 @@ const Navbar = (props) => {
         <Link to='/questions'>Questions Page</Link>
         <Link to='/projects'>Projects</Link>
         <Link to='/'>Home</Link>
+        <Link to='/internships'>Internships</Link>
         {renderContent()}
       </nav>
     </div>

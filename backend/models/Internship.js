@@ -19,6 +19,15 @@ const internshipSchema = new Schema({
   topicsCovered: {
     type: String,
   },
+
+  internshipBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  date: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 const Internship = mongoose.model('Internship', internshipSchema);

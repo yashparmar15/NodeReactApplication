@@ -18,11 +18,6 @@ const userSchema = new Schema({
     type: Number,
     default: 0,
   },
-
-  internship: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Internship',
-  },
 });
 
 const User = mongoose.model('User', userSchema);
