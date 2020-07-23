@@ -18,13 +18,15 @@ router.post('', isUserAuthenticated, async (req, res) => {
   const interview = req.body.interview;
   const topicsCovered = req.body.topicsCovered;
   const internshipBy = req.user;
+  const name = req.user.username;
   console.log(
     yearOfInternship,
     companyName,
     jobProfile,
     interview,
     topicsCovered,
-    internshipBy
+    internshipBy,
+    name
   );
 
   new Internship({
@@ -34,6 +36,7 @@ router.post('', isUserAuthenticated, async (req, res) => {
     interview,
     topicsCovered,
     internshipBy,
+    name,
   })
     .save()
     .then(() => {
@@ -47,7 +50,10 @@ router.post('', isUserAuthenticated, async (req, res) => {
 });
 
 router.get('', async (req, res) => {
-  const AllInternships = await Internship.find({}).populate('internshipBy');
+  var sort = { name: 1 };
+  const AllInternships = await Internship.find({})
+    .populate('internshipBy')
+    .sort(sort);
   res.status(200).send(AllInternships);
 });
 

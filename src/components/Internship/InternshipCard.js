@@ -5,7 +5,7 @@ import './InternshipCard.css';
 function InternshipCard(props) {
   return (
     <div>
-      <div class='card mb-3 card-internship'>
+      <div class='card mb-5 card-internship border-left-0 border-bottom-0 border-right-0'>
         <div class='row no-gutters'>
           <div class='col-md-2'>
             <img
