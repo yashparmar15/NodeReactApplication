@@ -12,8 +12,10 @@ function Internships(props) {
   }, []);
   return (
     <div className='container'>
-      <h1>All Internships</h1>
-      <InternshipModal />
+      <h1 className='my-2 text-center'>All Internships</h1>
+      <div className='d-flex justify-content-center'>
+        <InternshipModal />
+      </div>
       <Internship />
     </div>
   );

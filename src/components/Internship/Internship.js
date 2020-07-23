@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import InternshipCard from './InternshipCard';
+import Loader from '../../assets/loaders/svg-loaders/oval.svg';
+import './internship.css';
 
 function Internship(props) {
   const [name, setName] = useState('');
@@ -40,6 +42,9 @@ function Internship(props) {
   }
   return (
     <div>
+      {props.internships.internshipLoading && (
+        <img src={Loader} className='internshipLoader mt-3' alt='loader' />
+      )}
       {!props.internships.internshipLoading && (
         <div className='ml-3 mt-3 mb-5'>
           <label htmlFor='name-filter'>Filter by Name:</label>

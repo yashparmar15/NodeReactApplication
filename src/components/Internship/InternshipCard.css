@@ -1,3 +1,10 @@
 .card-internship {
   max-width: 90vw;
+  transition: all 0.1s ease;
+}
+
+.card-internship:hover {
+  -webkit-box-shadow: 0px 0px 21px 3px rgba(217, 217, 217, 1);
+  -moz-box-shadow: 0px 0px 21px 3px rgba(217, 217, 217, 1);
+  box-shadow: 0px 0px 21px 3px rgba(217, 217, 217, 1);
 }
