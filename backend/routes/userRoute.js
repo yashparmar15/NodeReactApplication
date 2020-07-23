@@ -51,18 +51,12 @@ router.post('/user-profile', upload.single('picture'), (req, res, next) => {
   });
 });
 
-router.get('/getall', (req, res, next) => {
-  Student.find({}, (err, result) => {
-    if (err) console.log(err);
-    else {res.json(result)};
-  });
-});
 
 
 
 router.get('/getuserinfo', (req, res, next) => {
   // console.log(req.query)
-    Student.findOne({'id' :req.query.id},['name' , 'email' , 'followers' , 'following' , 'views_on_profile' , 'skills' , 'phone' , 'likes' , 'joindate' , 'college' , 'year' , 'branch' , 'exp' , 'about'],(err,result)=>{
+    Student.findOne({'id' :req.query.id},['name' , 'email' , 'followers' , 'following', 'views_on_profile' , 'skills' , 'phone' , 'likes' , 'joindate' , 'college' , 'year' , 'branch' , 'exp' , 'about'],(err,result)=>{
       if(err) console.log(err);
       else{ res.send(result)};
     })
@@ -83,15 +77,23 @@ router.get('/getuserdata', (req, res, next) => {
 });
 
 
-router.get('/getallusers', (req, res, next) => {
-  User.find({}, (err, result) => {
-    if (err) console.log(err);
-    else res.json(result);
-  });
+router.get('/checkalreadyfollowing', (req, res, next) => {
+  var a = false;
+  Student.findOne({id :req.query.id},(err,result)=>{
+    if(err) console.log(err);
+    else{ result.followedby.map(i =>{
+      if(i === req.query.cur_id){
+        a = true;
+      }
+    })
+    res.send(a);
+    };
+  })
 });
 
+
+
 router.post('/change', (req, res, next) => {
-  // console.log(req.body.dataUser)
   Student.findByIdAndUpdate(
     { _id: req.body.dataUser._id },
     { about: req.body.dataUser.about },
@@ -105,10 +107,89 @@ router.post('/change', (req, res, next) => {
   );
 });
 
+router.post('/updatefollow',  (req, res, next) => {
+  // console.log(req.body.Current.followedby)
+  let Cur ;
+    Student.findOne({_id : req.body.Current._id} , (err,result) => {
+      return result;
+    }).then(r => {
+      Cur = r;
+      if(req.body.Current.Unfollow){
+        var index = 0;
+        var i = 0;
+        Cur.followedby.map(h =>{
+          if(h === req.body.Current.g)
+            index = i;
+          i++;
+        })
+        Cur.followedby.splice(index,1);
+      }
+      else
+      Cur.followedby.push(req.body.Current.g);
+      Student.findByIdAndUpdate(
+        { _id: req.body.Current._id},
+        {followers : req.body.Current.followers , followedby : Cur.followedby},
+        function (err, result) {
+          if (err) {
+            res.send(err);
+          } else {
+            // console.log(result);
+            res.send({'result' : true});
+          }
+        }
+      );
+    })
+
+
+
+
+    
+
+
+
+});
+
+
+router.post('/updatefollowing',  (req, res, next) => {
+  let Cur ;
+  Student.findOne({id : req.body.Current.g} , (err,result) => {
+    return result;
+  }).then(r => {
+    
+    Cur = r;
+    
+    if(req.body.Current.Unfollow){
+      var index = 0;
+      var i = 0;
+      Cur.follows.map(h =>{
+        if(h === req.body.Current.id)
+          index = i;
+        i++;
+      })
+      Cur.follows.splice(index,1);
+      Cur.following = Cur.following - 1;
+    }
+    else{
+      Cur.follows.push(req.body.Current.id);
+      Cur.following = Cur.following + 1;
+    }
+    // console.log(Cur)
+    Student.findByIdAndUpdate(
+      {_id: Cur._id},
+      {following : Cur.following , follows : Cur.follows},
+      function (err, result) {
+         
+          // console.log(result,"Yash Parmar");
+          res.send(result);
+        
+      }
+    );
+  })
+});
+
+
+
 router.post('/addtodo', (req, res, next) => {
-  // console.log(req.body.dataUser)
-  // console.log(req.body.C.todo);
-  // console.log(req.body.C._id)
   Student.findByIdAndUpdate(
     { _id: req.body.C._id },
     { todo: req.body.C.todo },
