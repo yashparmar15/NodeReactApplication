@@ -7,10 +7,13 @@ const AnswerSchema = new Schema({
 		required: true,
 	},
 	upvotes: {
-		type: Number,
+		type: [mongoose.Schema.Types.ObjectId],
+		ref: "User",
 	},
+
 	downvotes: {
-		type: Number,
+		type: [mongoose.Schema.Types.ObjectId],
+		ref: "User",
 	},
 	date: {
 		type: Date,
@@ -20,5 +23,5 @@ const AnswerSchema = new Schema({
 	username: String,
 });
 
-const Answer = mongoose.model('Answer', AnswerSchema);
+const Answer = mongoose.model("Answer", AnswerSchema);
 module.exports = Answer;
