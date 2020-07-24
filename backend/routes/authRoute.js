@@ -5,6 +5,20 @@ const router = express.Router();
 const Question = require("../models/Questions");
 const { combineReducers } = require("redux");
 
+router.post("/answers", async (req, res) => {
+	console.log(4);
+	const id = req.body.q_id;
+	await Question.findById(id)
+		.exec()
+		.then((doc) => {
+			if (doc) {
+				res.send(doc.answers);
+			} else {
+				res.send(404);
+			}
+		});
+});
+
 router.get(
 	"/auth/google",
 	passport.authenticate("google", {
@@ -167,6 +181,24 @@ router.get("/api/allusers", async (req, res) => {
 	// console.log(4);
 	let allusers = await User.find({});
 	return res.status(200).send(allusers);
+});
+
+router.get("/api/answers/:id", async (req, res) => {
+	console.log(4);
+	console.log(req.body);
+	console.log(req.params.id);
+	// res.send(4);
+
+	const id = req.params.id;
+	await Question.findById(id)
+		.exec()
+		.then((doc) => {
+			if (doc) {
+				res.send(doc.answers);
+			} else {
+				res.sendStatus(404);
+			}
+		});
 });
 
 router.get("/api/getTopUsersQ", async (req, res) => {
