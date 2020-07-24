@@ -11,6 +11,28 @@ function isUserAuthenticated(req, res, next) {
   }
 }
 
+router.put('', isUserAuthenticated, async (req, res) => {
+  const companyName = req.body.company;
+  const jobProfile = req.body.jobProfile;
+  const interview = req.body.interview;
+  const id = req.body.id;
+  // console.log(req.body);
+  await Internship.findByIdAndUpdate(
+    { _id: id },
+    {
+      companyName,
+      jobProfile,
+      interview,
+    }
+  )
+    .then(() => {
+      return res.status(200);
+    })
+    .catch(() => {
+      return res.status(500);
+    });
+});
+
 router.post('', isUserAuthenticated, async (req, res) => {
   const yearOfInternship = req.body.yearOfInternship;
   const companyName = req.body.companyName;

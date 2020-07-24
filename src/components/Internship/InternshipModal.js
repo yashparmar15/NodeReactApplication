@@ -50,7 +50,7 @@ function InternshipModal() {
     <div>
       <button
         type='button'
-        class='btn btn-primary'
+        className='btn btn-primary'
         data-toggle='modal'
         data-target='#internshipModal'
       >
@@ -58,29 +58,29 @@ function InternshipModal() {
       </button>
 
       <div
-        class='modal fade'
+        className='modal fade'
         id='internshipModal'
-        tabindex='-1'
+        // tabindex='-1'
         role='dialog'
         aria-labelledby='exampleModalLabel'
         aria-hidden='true'
       >
-        <div class='modal-dialog internship-modal-dialog'>
-          <div class='modal-content internship-modal-content'>
-            <div class='modal-header'>
-              <h5 class='modal-title' id='exampleModalLabel'>
+        <div className='modal-dialog internship-modal-dialog'>
+          <div className='modal-content internship-modal-content'>
+            <div className='modal-header'>
+              <h5 className='modal-title' id='exampleModalLabel'>
                 Add Internship Experience!
               </h5>
               <button
                 type='button'
-                class='close'
+                className='close'
                 data-dismiss='modal'
                 aria-label='Close'
               >
                 <span aria-hidden='true'>&times;</span>
               </button>
             </div>
-            <div class='modal-body'>
+            <div className='modal-body'>
               <form onSubmit={handleInternshipSubmit}>
                 <label htmlFor='year'>Year of Internship:</label>
                 <input
@@ -122,7 +122,7 @@ function InternshipModal() {
                   onChange={(e) => settopicsCovered(e.target.value)}
                 />
                 <div className='mt-3'>
-                  <button type='submit' class='btn btn-primary'>
+                  <button type='submit' className='btn btn-primary'>
                     Add Internship!
                   </button>
                 </div>
