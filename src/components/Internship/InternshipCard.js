@@ -3,19 +3,29 @@ import axios from 'axios';
 
 import './InternshipCard.css';
 import { connect } from 'react-redux';
-import InternshipUpdateModal from './InternshipUpdateModal';
 
 function InternshipCard(props) {
   const [readOnly, setreadOnly] = useState(true);
   const [displayButton, setdisplayButton] = useState(false);
+  const [border, setBorder] = useState(false);
   const [company, setCompany] = useState(props.internship.companyName);
   const [jobProfile, setjobProfile] = useState(props.internship.jobProfile);
   const [interview, setInterview] = useState(props.internship.interview);
+  const [alert, setAlert] = useState(false);
 
   function handleNewInternshipSubmit(e) {
     e.preventDefault();
+    setreadOnly(!readOnly);
+    setdisplayButton(!displayButton);
+    setBorder(!border);
     PostInternship(company, jobProfile, interview, props.internship._id);
     // window.location.reload(false);
+    setTimeout(function () {
+      setAlert(true);
+      setTimeout(function () {
+        setAlert(false);
+      }, 3000);
+    }, 1000);
   }
 
   function PostInternship(company, jobProfile, interview, id) {
@@ -32,6 +42,22 @@ function InternshipCard(props) {
   return (
     <div>
       <div className='card mb-4 card-internship border-left-0 border-bottom-0 border-right-0'>
+        {alert && (
+          <div
+            class='alert alert-success alert-dismissible fade show'
+            role='alert'
+          >
+            Internship information updated!
+            <button
+              type='button'
+              class='close'
+              data-dismiss='alert'
+              aria-label='Close'
+            >
+              <span aria-hidden='true'>&times;</span>
+            </button>
+          </div>
+        )}
         <div className='row no-gutters'>
           <div className='col-md-2'>
             <img
@@ -46,17 +72,11 @@ function InternshipCard(props) {
                 {props.internship.internshipBy.username}
                 {props.userId === props.internship.internshipBy._id && (
                   <div className='float-right'>
-                    {/* <InternshipUpdateModal
-                      id={props.internship._id}
-                      name={props.internship.internshipBy.username}
-                      company={props.internship.companyName}
-                      profile={props.internship.jobProfile}
-                      interview={props.internship.interview}
-                    /> */}
                     <button
                       onClick={(e) => {
                         setreadOnly(!readOnly);
                         setdisplayButton(!displayButton);
+                        setBorder(!border);
                       }}
                       className='btn'
                     >
@@ -67,16 +87,17 @@ function InternshipCard(props) {
                 <form onSubmit={handleNewInternshipSubmit}>
                   <div className='d-flex flex-column h-100'>
                     <input
+                      className={!border && `border-0`}
                       type='text'
                       readOnly={readOnly}
                       value={company}
-                      className=' border-0'
                       onChange={(e) => {
                         setCompany(e.target.value);
                       }}
                     />
+
                     <input
-                      className='border-0'
+                      className={!border && `border-0`}
                       readOnly={readOnly}
                       value={jobProfile}
                       onChange={(e) => {
@@ -87,8 +108,9 @@ function InternshipCard(props) {
                   <div className='input-interview'>
                     <textarea
                       type='text'
+                      id='interview'
                       readOnly={readOnly}
-                      className='border-0 textarea-interview'
+                      className={`${!border && 'border-0'} textarea-interview`}
                       value={interview}
                       onChange={(e) => {
                         setInterview(e.target.value);
