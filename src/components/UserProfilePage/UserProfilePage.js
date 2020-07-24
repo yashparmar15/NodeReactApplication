@@ -25,6 +25,9 @@ class UserProfilePage extends Component {
     alreadyfollowing : false
   };
   componentDidMount = () => {
+    if(this.props.user.userData.flag2)
+        window.location = '/info'
+    else{
     const path = window.location.pathname;
     const proid = path.substr(9,24);
     if(proid.length !== 24)
@@ -59,6 +62,7 @@ class UserProfilePage extends Component {
     if (flag && this.state.check) {
       window.location = '/info';
     }
+  }
   };
 
 

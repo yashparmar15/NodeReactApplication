@@ -45,6 +45,15 @@ class UserInfoForm extends Component {
     }
 
     componentDidMount(){
+        if(this.props.userI.isAuthenticated === false){
+            alert('Please login to fill the form');
+            window.location = '/questions'
+        }
+        if(this.props.userI.userData.flag2 === false)
+        {
+            alert("You already filled the form");
+            window.location = '/';
+        }
         var flag = false;
         var A;
         console.log("Connected")
@@ -167,6 +176,13 @@ class UserInfoForm extends Component {
         if(!this.state.nameError  && this.state.buttonClicked && !this.state.expError && !this.state.githubError && !this.state.collegeError && !this.state.linkedinError && !this.state.phoneError){
             axios.post('http://localhost:5000/user',{dataUser}).then(res => {
                 window.location = '/';
+            })
+            const v = {
+                id : this.props.userI.userData._id,
+                flag2 : false,
+            }
+            axios.post('http://localhost:5000/user/flag2',{v}).then(res => {
+
             })
         } else {
             alert("Something went wrong!\nPlease Try Again");

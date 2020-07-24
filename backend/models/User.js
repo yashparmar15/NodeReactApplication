@@ -10,6 +10,10 @@ const userSchema = new Schema({
     type: Boolean,
     default: true,
   },
+  flag2: {
+    type: Boolean,
+    default: true,
+  },
   totalquestions: {
     type: Number,
     default: 0,

@@ -127,6 +127,12 @@ router.post('/change', (req, res, next) => {
   );
 });
 
+router.post('/flag2',(req,res,next)=>{
+  User.findByIdAndUpdate({_id:req.body.v.id},{flag2 : req.body.v.flag2},(err,result)=>{
+    res.send({'r' : 'done'});
+  })
+})
+
 router.post('/updatefollow', (req, res, next) => {
   // console.log(req.body.Current.followedby)
   let Cur;
