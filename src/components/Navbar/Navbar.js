@@ -11,11 +11,13 @@ const Navbar = (props) => {
   };
 
   const renderContent = () => {
+    const userId = props.user.userData._id;
     if (props.user.isAuthenticated) {
       return (
         <>
           <Link to={`/profile/todo/${props.user.userData._id}`}>Todo</Link>
-          <Link to={`/profile/${props.user.userData._id}`}>Profile</Link>
+          <a href={`/profile/${userId}`}>Profile</a>
+
           <button onClick={logout} className='btn btn-primary'>
             Logout
           </button>
@@ -35,6 +37,7 @@ const Navbar = (props) => {
         <Link to='/questions'>Questions Page</Link>
         <Link to='/projects'>Projects</Link>
         <Link to='/'>Home</Link>
+        <Link to='/internships'>Internships</Link>
         {renderContent()}
       </nav>
     </div>

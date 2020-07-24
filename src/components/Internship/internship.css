@@ -1,0 +1,8 @@
+.internshipLoader {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.form-filter-input {
+  width: 54vw;
+}

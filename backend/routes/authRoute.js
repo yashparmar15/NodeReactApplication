@@ -33,24 +33,25 @@ router.get(
 );
 
 router.get(
-	"/auth/google/callback",
-	passport.authenticate("google"),
-	(req, res) => {
-		if (req.user.flag) {
-			console.log(req.user);
-			const dummy = req.user;
-			dummy["flag"] = false;
-			User.findByIdAndUpdate(
-				req.user._id,
-				dummy,
-				{ runValidators: true },
-				(err, response) => {
-					if (err) console.log(err);
-				}
-			);
-			res.redirect(`/info`);
-		} else res.redirect("/");
-	}
+  '/auth/google/callback',
+  passport.authenticate('google'),
+  (req, res) => {
+    if (req.user.flag) {
+      console.log(req.user);
+      const dummy = req.user;
+      dummy['flag'] = false;
+      User.findByIdAndUpdate(
+        req.user._id,
+        dummy,
+        { runValidators: true },
+        (err, response) => {
+          if (err) console.log(err);
+        }
+      );
+      res.redirect(`/info`);
+    } 
+    else res.redirect('/');
+  }
 );
 router.get(
 	"/auth/github/callback",

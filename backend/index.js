@@ -13,10 +13,18 @@ app.use(bodyParser.json());
 app.use("/public", express.static("public"));
 const PORT = process.env.PORT || 5000;
 
+<<<<<<< HEAD
 const authRoute = require("./routes/authRoute");
 const userRoute = require("./routes/userRoute");
 const voteRoute = require("./routes/voteRoute");
 const projectRoute = require("./routes/projectRoute");
+=======
+const authRoute = require('./routes/authRoute');
+const userRoute = require('./routes/userRoute');
+const voteRoute = require('./routes/voteRoute');
+const projectRoute = require('./routes/projectRoute');
+const internshipRoute = require('./routes/internshipRoute');
+>>>>>>> fbc19a5ec9bccd1ce9059299259745f35f2266c2
 
 require("./services/passport");
 
@@ -43,11 +51,19 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+<<<<<<< HEAD
 app.use("", authRoute);
 app.use("/user", userRoute);
 app.use("/api/question", voteRoute);
 
 app.use("/api/projects", projectRoute);
+=======
+app.use('', authRoute);
+app.use('/user', userRoute);
+app.use('/api/question', voteRoute);
+app.use('/api/projects', projectRoute);
+app.use('/api/internships', internshipRoute);
+>>>>>>> fbc19a5ec9bccd1ce9059299259745f35f2266c2
 app.listen(PORT, () => {
 	console.log(`Server running on ${PORT}`);
 });

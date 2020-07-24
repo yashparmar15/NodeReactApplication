@@ -14,10 +14,4 @@ export const logoutUser = () => {
     });
   };
 };
-export const fetchUsersAction = () => {
-	return (dispatch) => {
-		axios.get("http://localhost:5000/user/getall").then((res) => {
-			dispatch({ type: "GET_USERS", payload: res.data });
-		});
-	};
-};
+

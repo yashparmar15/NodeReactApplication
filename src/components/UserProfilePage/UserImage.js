@@ -4,10 +4,35 @@ import {connect} from 'react-redux';
 
 import axios from 'axios';
 
+import loader from '../../assets/images/download.png';
+
 class UserImage extends Component{
     state = {
         picture : '',
-        userCur : {}
+        userCur : {},
+        check : this.props.user.userData._id === window.location.pathname.substr(9,24),
+        loading : true,
+    }
+
+    componentDidMount = () => {
+        axios.get("http://localhost:5000/user/getuserpicture",{
+            params : {
+                id : window.location.pathname.substr(9,24)
+            }
+            }).then((res) => {
+                this.setState({picture : res.data.picture})
+        });
+        axios.get("http://localhost:5000/user/getuserinfo",{
+            params : {
+                id : window.location.pathname.substr(9,24)
+            }
+            }).then((res) => {
+                if(res.data){
+                    this.setState({userCur : res.data});
+                } else {
+                window.location = '/404'
+                }
+		});
     }
     onSubmit = (e) =>{
         e.preventDefault()
@@ -24,21 +49,33 @@ class UserImage extends Component{
     imagechangefunc = async (e) =>{
         this.setState({picture : e.target.files[0]});
     }
-
+    
     render(){
+        var show = null;
+        if(this.state.check === true)
+            show = <div className='overlay'>
+            <button className='icon' title='Change Image' data-toggle="modal" data-target="#imagechange">
+                <i className='fa fa-camera'></i>
+            </button>
+            </div>
         return(
             <>
+                
                 <div className='div-for-profile'>
-                    <img
-                    src={this.props.user.userData.picture}
+                    {this.state.picture ? <img
+                    src={this.state.picture}
                     className='mx-auto img-fluid img-circle d-block profile-pic-yash'
                     alt='avatar'
-                    />
-                    <div className='overlay'>
-                    <button className='icon' title='Change Image' data-toggle="modal" data-target="#imagechange">
-                        <i className='fa fa-camera'></i>
-                    </button>
-                    </div>
+                    /> : <img
+                    src={loader}
+                    className='mx-auto img-fluid img-circle d-block profile-pic-yash'
+                    alt='avatar'
+                    />}
+                    
+                    
+                    {show}
+                    
+                    
                 </div>
                 <div className="modal fade" id="imagechange" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <form onSubmit={this.onSubmit}>
@@ -71,6 +108,7 @@ const mapStateToProps = (state) => {
     return {
       user: state.auth,
       users:state.user,
+      allusers : state.users
     };
   };
 

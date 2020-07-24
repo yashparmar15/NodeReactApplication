@@ -8,7 +8,6 @@ import './Questions.css';
 function Questions(props) {
   const [title, setTitle] = useState('');
   const [name, setName] = useState('');
-
   const onChangeT = (e) => {
     setTitle(e.target.value);
     console.log(title);

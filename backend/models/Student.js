@@ -101,8 +101,16 @@ const StudentSchema = new Schema({
     description : {
       type:String,
     }
+  }],
+  follows:[{
+      type: String
+  }],
+  followedby : [{
+      type:String,
+
   }]
 });
+
 
 const Student = mongoose.model('Student', StudentSchema);
 module.exports = Student;

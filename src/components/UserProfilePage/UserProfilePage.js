@@ -1,8 +1,8 @@
-import React, { useState, useEffect, Component } from 'react';
+import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
 import 'font-awesome/css/font-awesome.min.css';
-
+import axios from 'axios';
 import './UserProfilePage.css';
 import UserSkills from './UserSkills';
 import { connect } from 'react-redux';
@@ -19,28 +19,102 @@ class UserProfilePage extends Component {
   state = {
     cur_user: '',
     join: '',
+    check : this.props.user.userData._id === window.location.pathname.substr(9,24),
+    pro : window.location.pathname.substr(9,24),
+    loading : true,
+    alreadyfollowing : false
   };
   componentDidMount = () => {
-    var flag = true;
-    this.props.users.usersData.map((a) => {
-      if (a.id === this.props.user.userData._id) {
-        this.setState({ cur_user: a });
-        this.setState({ join: a.joindate });
-        flag = false;
+    const path = window.location.pathname;
+    const proid = path.substr(9,24);
+    if(proid.length !== 24)
+      window.location = '/404'
+    console.log(proid)
+    axios.get("http://localhost:5000/user/getuserinfo",{
+      params : {
+        id : proid
       }
+    }).then((res) => {
+        if(res.data){
+          // console.log(res.data)
+          this.setState({cur_user : res.data});
+          this.setState({join : res.data.joindate})
+        } else {
+          window.location = '/404'
+        }
     });
-    console.log(flag);
-    if (flag) {
+    if(this.props.user.isAuthenticated){
+      axios.get("http://localhost:5000/user/checkalreadyfollowing",{
+        params : {
+          id : proid,
+          cur_id : this.props.user.userData._id,
+        }
+      }).then((res) => {
+        this.setState({alreadyfollowing : res.data});
+      });
+    }
+    var flag = true;
+    if(this.props.user.userData._id === proid)
+      flag = false;
+    if (flag && this.state.check) {
       window.location = '/info';
     }
-    console.log(this.state.cur_user, 'Hello');
   };
+
+
+  followUser = () => {
+    var Current = {
+      id : this.state.pro,
+      _id : this.state.cur_user._id,
+      followers : this.state.cur_user.followers + 1,
+      g : this.props.user.userData._id,
+      Unfollow : false,
+    }
+    axios.post("http://localhost:5000/user/updatefollow",{Current}).then((res) => {
+      // console.log(res);
+      const newC = {
+        ...this.state.cur_user,
+        followers : Current.followers
+      }
+      this.setState({cur_user : newC});
+      this.setState({alreadyfollowing : true});
+    });
+    axios.post("http://localhost:5000/user/updatefollowing",{Current}).then((res) => {
+      console.log(res);
+    });
+    
+  }
+
+  unfollowUser = () => {
+    var Current = {
+      id:this.state.pro,
+      _id : this.state.cur_user._id,
+      followers : this.state.cur_user.followers - 1,
+      g : this.props.user.userData._id,
+      Unfollow : true
+    }
+    axios.post("http://localhost:5000/user/updatefollow",{Current}).then((res) => {
+      const newC = {
+        ...this.state.cur_user,
+        followers : Current.followers
+      }
+      this.setState({cur_user : newC});
+      this.setState({alreadyfollowing : false});
+      
+    });
+    axios.post("http://localhost:5000/user/updatefollowing",{Current}).then((res) => {
+      console.log(res);
+    });
+  }
+
+
   render() {
     return (
       <div className='container' style={{ marginTop: '5vw' }}>
+        
         <div className='row my-2'>
           <div className='col-lg-4 order-lg-1 text-center'>
-            <UserImage />
+            <UserImage check = {this.state.check}/>
             <h4 className='mt-4 user-name-yash'>{this.state.cur_user.name}</h4>
             <p>Joined On : {this.state.join.toString().substr(0, 10)}</p>
             <p className='mt-2 card-text'>
@@ -48,7 +122,7 @@ class UserProfilePage extends Component {
               For what reason would it be advisable for me to think about
               business content?{' '}
             </p>{' '}
-            <button className='btn btn-info btn-sm mt-8 mb-4'>Follow</button>
+            {this.props.user.userData._id !== this.state.pro ? !this.state.alreadyfollowing ? <button className='btn btn-info btn-sm mt-8 mb-4' disabled = {!this.props.user.isAuthenticated} onClick = {this.followUser}>Follow</button> : <button className='btn btn-info btn-sm mt-8 mb-4' disabled = {!this.props.user.isAuthenticated} onClick = {this.unfollowUser}>Unfollow</button> : null}
             <div className='border-top pt-3 border-bottom mb-4'>
               <div className='row'>
                 <div className='col-4'>
@@ -86,7 +160,7 @@ class UserProfilePage extends Component {
                   User Info
                 </div>
               </li>
-              <li className='nav-item'>
+              {this.state.check ? <li className='nav-item'>
                 <div
                   data-target='#edit'
                   data-toggle='tab'
@@ -94,15 +168,16 @@ class UserProfilePage extends Component {
                 >
                   Edit
                 </div>
-              </li>
+              </li> : null }
+              
             </ul>
             <div className='tab-content py-4'>
               <div className='tab-pane active' id='profile'>
                 <h5 className='mb-3'>User Profile</h5>
                 <div className='row'>
                   <div className='col-md-6'>
-                    <UserAbout />
-                    <UserSkills />
+                    <UserAbout check = {this.state.check} userCurrent = {this.state.cur_user}/>
+                    <UserSkills check = {this.state.check} userId = {this.state.pro}/>
                   </div>
                   <div className='col-md-6'>
                     <span className='badge badge-primary yf'>
@@ -219,7 +294,6 @@ class UserProfilePage extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.auth,
-    users: state.user,
   };
 };
 

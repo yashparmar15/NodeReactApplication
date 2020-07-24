@@ -26,10 +26,17 @@ class UpdateForm extends Component{
         super(props);
     }
     componentDidMount(){
-        this.props.users.usersData.map(U =>{
-            if(U.id === this.props.user.userData._id)
-                this.setState({cur_user : U});
-        })
+        axios.get("http://localhost:5000/user/getuserinfo",{
+            params : {
+                id : window.location.pathname.substr(9,24)
+            }
+            }).then((res) => {
+                if(res.data){
+                    this.setState({cur_user : res.data});
+                } else {
+                window.location = '/404'
+                }
+		});
     }
 
     changename = (e) => {
@@ -147,8 +154,8 @@ class UpdateForm extends Component{
         
         if(!this.state.nameError && !this.state.emailError && !this.state.expError && !this.state.phoneError && !this.state.emailError && !this.state.linkedinError && !this.state.githubError){
             axios.post('http://localhost:5000/user/updateuser',{Current}).then(res => {
-                window.location = `/profile/${this.state.cur_user.id}`
-                
+
+                window.location = `/profile/${res.data.id}`
                 this.setState({alerttext : "Successfully Updated"});
                 this.setState({alertclass : "alert alert-success"});
             })
