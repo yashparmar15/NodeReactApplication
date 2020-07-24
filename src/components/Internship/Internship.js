@@ -46,32 +46,40 @@ function Internship(props) {
         <img src={Loader} className='internshipLoader mt-3' alt='loader' />
       )}
       {!props.internships.internshipLoading && (
-        <div className='ml-3 mt-3 mb-5'>
-          <label htmlFor='name-filter'>Filter by Name:</label>
-          <input
-            type='text'
-            className='form-control w-75'
-            id='name-filter'
-            onChange={onChangeName}
-          />
-          <label className='mt-2' htmlFor='comapany-filter'>
-            Filter by Company:
-          </label>
-          <input
-            type='text'
-            id='company-filter'
-            className='form-control w-75'
-            onChange={onChangeCompany}
-          />
-          <label className='mt-2' htmlFor='job-profile-filter'>
-            Filter by Job Profile:
-          </label>
-          <input
-            type='text'
-            id='job-profile-filter'
-            className='form-control w-75'
-            onChange={onChangeProfile}
-          />
+        <div className='ml-3 mt-3 mb-5 d-flex flex-column  align-items-center'>
+          <div className='text-left'>
+            <label htmlFor='name-filter' className=''>
+              Filter by Name:
+            </label>
+            <input
+              type='text'
+              className='form-control form-filter-input'
+              id='name-filter'
+              onChange={onChangeName}
+            />
+          </div>
+          <div className='text-left'>
+            <label className='mt-2' htmlFor='comapany-filter'>
+              Filter by Company:
+            </label>
+            <input
+              type='text'
+              id='company-filter'
+              className='form-control form-filter-input'
+              onChange={onChangeCompany}
+            />
+          </div>
+          <div className='text-left'>
+            <label className='mt-2' htmlFor='job-profile-filter'>
+              Filter by Job Profile:
+            </label>
+            <input
+              type='text'
+              id='job-profile-filter'
+              className='form-control form-filter-input'
+              onChange={onChangeProfile}
+            />
+          </div>
         </div>
       )}
       {props.internships.internships.map((internship) => (
